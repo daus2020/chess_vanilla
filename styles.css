@@ -1,0 +1,44 @@
+:root {
+  --table-size: 320px;
+  --square-size: 40px;
+  --light-square: #e3ba85;
+  --dark-square: #aa7b58;
+  --piece-width: 2rem;
+}
+
+body {
+  background-color: rgb(88 114 114);
+}
+
+#chessBoard {
+  width: var(--table-size);
+  aspect-ratio: 1 / 1; /* This keeps the height the same as the width */
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.square {
+  width: var(--square-size);
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+.light {
+  background-color: var(--light-square);
+}
+
+.dark {
+  background-color: var(--dark-square);
+}
+
+.piece {
+  font-size: var(--piece-width);
+  display: flex;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+}
+
+.white {
+  color: mintcream;
+}
