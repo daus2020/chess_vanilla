@@ -53,13 +53,8 @@ allSquares.forEach((square) => {
 
 const whitePieces = document.querySelectorAll(".white");
 const blackPieces = document.querySelectorAll(".black");
-// console.log(whitePieces);
-// console.log(blackPieces);
 
 function changePlayer() {
-  const whitePieces = document.querySelectorAll(".white");
-  const blackPieces = document.querySelectorAll(".black");
-
   if (playerTurn === "white") {
     whitePieces.forEach((el) => {
       el.setAttribute("draggable", false);
@@ -89,12 +84,12 @@ function changePlayer() {
 
 // console.log(playerTurn);
 
-let startPositionId;
+let dragId;
 let draggedElement;
 
 function dragStart(e) {
-  startPositionId = e.target.parentNode.getAttribute("square-id");
-  console.log("startPositionId: " + startPositionId);
+  dragId = e.target.parentNode.getAttribute("square-id");
+  console.log("drag id: ", dragId);
   draggedElement = e.target;
 }
 
@@ -105,9 +100,9 @@ function dragOver(e) {
 function dragDrop(e) {
   e.stopPropagation();
   const dropId = e.target.parentNode.getAttribute("square-id");
-  console.log("drop id: " + dropId);
-  console.log(e.target);
-  console.log(draggedElement);
+  console.log("drop id: ", dropId);
+  console.log("dragged: ", draggedElement);
+  console.log("e.target : ", e.target);
   // const currentPlayer = draggedElement.classList.contains(playerTurn); // not necessary
   console.log("current player: " + playerTurn);
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
@@ -120,19 +115,24 @@ function dragDrop(e) {
 
   if (taken) {
     // if (taken && valid) {
-    console.log("Valid move and take");
+    e.target.parentNode.append(draggedElement);
+    e.target.remove();
+    // console.log("Valid move and take");
     // e.target.remove();
-    e.target.append(draggedElement);
     // e.target.parentNode.append(draggedElement);
-    // changePlayer();
+    changePlayer();
+    return;
   }
   //   e.target.parentNode.append(draggedElement);
   //   e.target.remove();
   //   e.target.append(draggedElement);
-  e.target.classList.contains(playerTurn)
-    ? console.log("movement not allowed")
-    : // ? alert(playerTurn + " can't do that")
-      changePlayer();
+  e.target.classList.contains(playerTurn) &&
+    console.log("movement not allowed");
+  // e.target.classList.contains(playerTurn)
+  // ? console.log("movement not allowed")
+  // : // ? alert(playerTurn + " can't do that")
+  //     changePlayer();
+  // return;
   // if (e.target.classList.contains(playerTurn))
   // changePlayer();
 }
