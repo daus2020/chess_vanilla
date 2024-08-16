@@ -59,8 +59,7 @@ console.log(blackPieces);
 function changePlayer() {
   const whitePieces = document.querySelectorAll(".white");
   const blackPieces = document.querySelectorAll(".black");
-  // console.log(whitePieces);
-  // console.log(blackPieces);
+
   if (playerTurn === "white") {
     whitePieces.forEach((el) => {
       el.setAttribute("draggable", false);
@@ -68,15 +67,7 @@ function changePlayer() {
     blackPieces.forEach((el) => {
       el.setAttribute("draggable", true);
     });
-
-    // document.querySelectorAll(".white").setAttribute("draggable", false);
-    // document.querySelectorAll(".black").setAttribute("draggable", true);
-    // whitePieces.setAttribute("draggable", false);
-
-    // blackPieces.setAttribute("draggable", true);
-
-    // return (playerTurn = "black");
-    // console.log('switch playerTurn to "black"');
+    console.log('switch playerTurn to "black"');
     playerTurn = "black";
   } else {
     whitePieces.forEach((el) => {
@@ -85,15 +76,7 @@ function changePlayer() {
     blackPieces.forEach((el) => {
       el.setAttribute("draggable", false);
     });
-    // document.querySelectorAll(".black").setAttribute("draggable", false);
-    // document.querySelectorAll(".white").setAttribute("draggable", true);
-    // blackPieces.forEach((piece) => {
-    //   piece.setAttribute("draggable", false);
-    // });
-    // whitePieces.forEach((piece) => {
-    //   piece.setAttribute("draggable", true);
-    // });
-    // console.log((playerTurn = "white"));
+
     console.log('switch playerTurn to "white"');
     playerTurn = "white";
   }
@@ -104,13 +87,14 @@ function changePlayer() {
   // playerDisplay.textContent = playerTurn;
 }
 
-console.log(playerTurn);
+// console.log(playerTurn);
 
 let startPositionId;
 let draggedElement;
 
 function dragStart(e) {
   startPositionId = e.target.parentNode.getAttribute("square-id");
+  console.log("startPositionId: " + startPositionId);
   draggedElement = e.target;
 }
 
@@ -120,8 +104,28 @@ function dragOver(e) {
 
 function dragDrop(e) {
   e.stopPropagation();
+  const dropId = e.target.parentNode.getAttribute("square-id");
+  console.log("drop id: " + dropId);
   console.log(e.target);
-  const taken = e.target.classList.contains("piece");
+  console.log(draggedElement);
+  // const currentPlayer = draggedElement.classList.contains(playerTurn); // not necessary
+  console.log("current player: " + playerTurn);
+  const opponentPlayer = playerTurn === "white" ? "black" : "white";
+  console.log("Opponent player: " + opponentPlayer);
+  // console.log("current opponent: " + opponentPlayer); // ok
+  const taken =
+    // e.target.classList.contains("piece") &&  ?// not necessary
+    e.target.classList.contains(opponentPlayer);
+  console.log(taken);
+
+  if (taken) {
+    // if (taken && valid) {
+    console.log("Valid move and take");
+    e.target.append(draggedElement);
+    // e.target.parentNode.append(draggedElement);
+    e.target.remove();
+    // changePlayer();
+  }
   //   e.target.parentNode.append(draggedElement);
   //   e.target.remove();
   //   e.target.append(draggedElement);
