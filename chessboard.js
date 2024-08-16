@@ -13,7 +13,7 @@ const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
 
-console.log(coords);
+// console.log(coords);  //ok
 
 function createBoard() {
   startPieces.forEach((piece, i) => {
@@ -53,8 +53,8 @@ allSquares.forEach((square) => {
 
 const whitePieces = document.querySelectorAll(".white");
 const blackPieces = document.querySelectorAll(".black");
-console.log(whitePieces);
-console.log(blackPieces);
+// console.log(whitePieces);
+// console.log(blackPieces);
 
 function changePlayer() {
   const whitePieces = document.querySelectorAll(".white");
@@ -121,15 +121,20 @@ function dragDrop(e) {
   if (taken) {
     // if (taken && valid) {
     console.log("Valid move and take");
+    // e.target.remove();
     e.target.append(draggedElement);
     // e.target.parentNode.append(draggedElement);
-    e.target.remove();
     // changePlayer();
   }
   //   e.target.parentNode.append(draggedElement);
   //   e.target.remove();
   //   e.target.append(draggedElement);
-  changePlayer();
+  e.target.classList.contains(playerTurn)
+    ? console.log("movement not allowed")
+    : // ? alert(playerTurn + " can't do that")
+      changePlayer();
+  // if (e.target.classList.contains(playerTurn))
+  // changePlayer();
 }
 
 // square.firstChild.has.setAttribute("draggable", true);
