@@ -123,6 +123,12 @@ function dragDrop(e) {
     changePlayer();
     return;
   }
+
+  if (e.target.childElementCount === 0) {
+    e.target.append(draggedElement);
+    changePlayer();
+    return;
+  }
   //   e.target.parentNode.append(draggedElement);
   //   e.target.remove();
   //   e.target.append(draggedElement);
