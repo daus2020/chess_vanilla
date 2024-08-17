@@ -102,14 +102,23 @@ function dragDrop(e) {
   const outBoard = e.target.parentNode;
   console.log(outBoard);
 
-  const dropId = e.target.parentNode.getAttribute("square-id");
+  let dropId = e.target.parentNode.getAttribute("square-id");
+  if (dropId === null) {
+    console.log("dropId is null");
+    // console.log(e.target.getAttribute("square-id"));
+    dropId = e.target.getAttribute("square-id");
+    console.log(dropId);
+  }
+
   // if (!dropId) {
   //   console.log("invalid movement, out of the board!");
   //   return;
   // }
   console.log("drop id: ", dropId);
   console.log("dragged: ", draggedElement);
-  console.log("e.target : ", e.target);
+  console.log(draggedElement.getAttribute("id"));
+  // console.log("e.target : ", e.target);..getAttribute("square-id")ibute("square-id")bute("square-id")
+  console.log("e.target id : ", e.target.getAttribute("square-id"));
   // const currentPlayer = draggedElement.classList.contains(playerTurn); // not necessary
   console.log("current player: " + playerTurn);
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
