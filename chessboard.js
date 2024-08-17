@@ -99,7 +99,14 @@ function dragOver(e) {
 
 function dragDrop(e) {
   e.stopPropagation();
+  const outBoard = e.target.parentNode;
+  console.log(outBoard);
+
   const dropId = e.target.parentNode.getAttribute("square-id");
+  // if (!dropId) {
+  //   console.log("invalid movement, out of the board!");
+  //   return;
+  // }
   console.log("drop id: ", dropId);
   console.log("dragged: ", draggedElement);
   console.log("e.target : ", e.target);
@@ -124,6 +131,13 @@ function dragDrop(e) {
     return;
   }
 
+  if (e.target.classList.contains(playerTurn)) {
+    console.log("movement not allowed");
+    return;
+  }
+  // e.target.classList.contains(playerTurn) &&
+  //   console.log("movement not allowed");
+
   if (e.target.childElementCount === 0) {
     e.target.append(draggedElement);
     changePlayer();
@@ -132,8 +146,6 @@ function dragDrop(e) {
   //   e.target.parentNode.append(draggedElement);
   //   e.target.remove();
   //   e.target.append(draggedElement);
-  e.target.classList.contains(playerTurn) &&
-    console.log("movement not allowed");
   // e.target.classList.contains(playerTurn)
   // ? console.log("movement not allowed")
   // : // ? alert(playerTurn + " can't do that")
