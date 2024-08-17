@@ -9,6 +9,7 @@ const xAxis = "abcdefgh".split(""); // ["a", "b", "c", "d", "e", "f", "g", "h"]
 const yAxis = xAxis.map((_, i) => 8 - i); // [ 8, 7, 6, 5, 4, 3, 2, 1]
 
 const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
+console.log(coords); // Array(64) ['a8', 'b8', 'c8','d8', 'e8', 'f8','g8', 'h8', 'a7',... "h2','a1', 'b1', "c1',.., 'h1']
 
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
@@ -127,7 +128,7 @@ function dragDrop(e) {
   const taken =
     // e.target.classList.contains("piece") &&  ?// not necessary
     e.target.classList.contains(opponentPlayer);
-  console.log(taken);
+  console.log("is taken: ", taken);
 
   if (taken) {
     // if (taken && valid) {
