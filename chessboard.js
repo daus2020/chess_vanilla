@@ -52,36 +52,52 @@ allSquares.forEach((square) => {
   square.addEventListener("drop", dragDrop);
 });
 
-const whitePieces = document.querySelectorAll(".white");
-const blackPieces = document.querySelectorAll(".black");
+// const whitePieces = document.querySelectorAll(".white");
+// const blackPieces = document.querySelectorAll(".black");
+const pieces = {
+  white: document.querySelectorAll(".white"),
+  black: document.querySelectorAll(".black"),
+};
+function toggleDraggable(pieces, isDraggable) {
+  pieces.forEach((el) => el.setAttribute("draggable", isDraggable));
+}
 
 function changePlayer() {
-  if (playerTurn === "white") {
-    whitePieces.forEach((el) => {
-      el.setAttribute("draggable", false);
-    });
-    blackPieces.forEach((el) => {
-      el.setAttribute("draggable", true);
-    });
-    console.log('switch playerTurn to "black"');
-    playerTurn = "black";
-  } else {
-    whitePieces.forEach((el) => {
-      el.setAttribute("draggable", true);
-    });
-    blackPieces.forEach((el) => {
-      el.setAttribute("draggable", false);
-    });
+  toggleDraggable(pieces[playerTurn], false);
+  playerTurn = playerTurn === "white" ? "black" : "white";
+  toggleDraggable(pieces[playerTurn], true);
+  playerDisplay.textContent = playerTurn;
 
-    console.log('switch playerTurn to "white"');
-    playerTurn = "white";
-  }
-  console.log(playerTurn);
-  return (playerDisplay.textContent = playerTurn);
-
-  // playerTurn === "white" ? (playerTurn = "black") : (playerTurn = "white");
-  // playerDisplay.textContent = playerTurn;
+  console.log(`switch playerTurn to "${playerTurn}"`);
 }
+
+// function changePlayer() {
+//   if (playerTurn === "white") {
+//     whitePieces.forEach((el) => {
+//       el.setAttribute("draggable", false);
+//     });
+//     blackPieces.forEach((el) => {
+//       el.setAttribute("draggable", true);
+//     });
+//     console.log('switch playerTurn to "black"');
+//     playerTurn = "black";
+//   } else {
+//     whitePieces.forEach((el) => {
+//       el.setAttribute("draggable", true);
+//     });
+//     blackPieces.forEach((el) => {
+//       el.setAttribute("draggable", false);
+//     });
+
+//     console.log('switch playerTurn to "white"');
+//     playerTurn = "white";
+//   }
+//   console.log(playerTurn);
+//   return (playerDisplay.textContent = playerTurn);
+
+//   // playerTurn === "white" ? (playerTurn = "black") : (playerTurn = "white");
+//   // playerDisplay.textContent = playerTurn;
+// }
 
 // console.log(playerTurn);
 
