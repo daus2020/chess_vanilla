@@ -87,11 +87,14 @@ function changePlayer() {
 
 let dragId;
 let draggedElement;
+let movements = [];
 
 function dragStart(e) {
   dragId = e.target.parentNode.getAttribute("square-id");
   console.log("drag id: ", dragId);
   draggedElement = e.target;
+  console.log("draggedElement", e.target);
+  console.log("draggedElement id: ", draggedElement.getAttribute("id"));
 }
 
 function dragOver(e) {
@@ -100,12 +103,13 @@ function dragOver(e) {
 
 function dragDrop(e) {
   e.stopPropagation();
-  const outBoard = e.target.parentNode;
-  console.log(outBoard);
+  const outBoard = e.target.parentNode.id;
+  console.log(e.target.parentNode);
+  console.log("parent node id: ", outBoard);
 
   let dropId = e.target.parentNode.getAttribute("square-id");
   if (dropId === null) {
-    console.log("dropId is null");
+    console.log("parent dropId is null");
     // console.log(e.target.getAttribute("square-id"));
     dropId = e.target.getAttribute("square-id");
     console.log(dropId);
