@@ -9,7 +9,7 @@ const xAxis = "abcdefgh".split(""); // ["a", "b", "c", "d", "e", "f", "g", "h"]
 const yAxis = xAxis.map((_, i) => 8 - i); // [ 8, 7, 6, 5, 4, 3, 2, 1]
 
 const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
-console.log(coords); // Array(64) ['a8', 'b8', 'c8','d8', 'e8', 'f8','g8', 'h8', 'a7',... "h2','a1', 'b1', "c1',.., 'h1']
+// console.log(coords); // Array(64) ['a8', 'b8', 'c8','d8', 'e8', 'f8','g8', 'h8', 'a7',... "h2','a1', 'b1', "c1',.., 'h1']
 
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
@@ -107,13 +107,18 @@ function dragStart(e) {
   console.log(dragId[0] + (+dragId[1] + 1));
   console.log(playerTurn);
 
-  playerTurn === "white"
-    ? (dragPlusOneRow = dragId[0] + (+dragId[1] + 1))
-    : (dragPlusOneRow = dragId[0] + (+dragId[1] - 1));
+  // playerTurn === "white"
+  //   ? (dragPlusOneRow = dragId[0] + (+dragId[1] + 1))
+  //   : (dragPlusOneRow = dragId[0] + (+dragId[1] - 1));
 
-  playerTurn === "white"
-    ? (dragPlusTwoRow = dragId[0] + (+dragId[1] + 2))
-    : (dragPlusTwoRow = dragId[0] + (+dragId[1] - 2));
+  // playerTurn === "white"
+  //   ? (dragPlusTwoRow = dragId[0] + (+dragId[1] + 2))
+  //   : (dragPlusTwoRow = dragId[0] + (+dragId[1] - 2));
+
+  const rowForward = playerTurn === "white" ? 1 : -1;
+
+  const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward);
+  const dragPlusTwoRow = dragId[0] + (parseInt(dragId[1]) + 2 * rowForward);
 
   // startPlusOneRow = dragId[0] + (+dragId[1] + 1);
   // startPlusTwoRows = dragId[0] + (+dragId[1] + 2);
