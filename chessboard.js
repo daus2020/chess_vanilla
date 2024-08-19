@@ -71,38 +71,8 @@ function changePlayer() {
   console.log(`switch playerTurn to "${playerTurn}"`);
 }
 
-// function changePlayer() {
-//   if (playerTurn === "white") {
-//     whitePieces.forEach((el) => {
-//       el.setAttribute("draggable", false);
-//     });
-//     blackPieces.forEach((el) => {
-//       el.setAttribute("draggable", true);
-//     });
-//     console.log('switch playerTurn to "black"');
-//     playerTurn = "black";
-//   } else {
-//     whitePieces.forEach((el) => {
-//       el.setAttribute("draggable", true);
-//     });
-//     blackPieces.forEach((el) => {
-//       el.setAttribute("draggable", false);
-//     });
-
-//     console.log('switch playerTurn to "white"');
-//     playerTurn = "white";
-//   }
-//   console.log(playerTurn);
-//   return (playerDisplay.textContent = playerTurn);
-
-//   // playerTurn === "white" ? (playerTurn = "black") : (playerTurn = "white");
-//   // playerDisplay.textContent = playerTurn;
-// }
-
-// console.log(playerTurn);
-
 let dragId;
-let draggedElement;
+let draggedDiv;
 let dragLetter;
 let dragRow;
 let dragPlusOneRow;
@@ -111,72 +81,24 @@ let movements = [];
 
 function dragStart(e) {
   dragId = e.target.parentNode.getAttribute("square-id");
-  console.log("drag id: ", dragId);
+  console.log("drag id: ", dragId); // i.e. h2
   dragLetter = dragId[0];
   dragRow = dragId[1];
-  console.log("drag letter: ", dragId[0]);
-  console.log("drag row: ", dragId[1]);
-  // console.log("typeof drag id: ", typeof dragId);
-  draggedElement = e.target;
-  console.log("draggedElement", e.target);
-  console.log("draggedElement id: ", draggedElement.getAttribute("id"));
-  console.log(dragId[0] + (+dragId[1] + 1));
+  console.log("drag letter: ", dragId[0]); // h
+  console.log("drag row: ", dragId[1]); // 2
+  draggedDiv = e.target;
+  draggedPiece = draggedDiv.getAttribute("id");
+  console.log("dragged div", e.target); // <div id="pawn" class="piece white" draggable="true">
+  console.log("dragged piece: ", draggedDiv.getAttribute("id")); // pawn
+  // console.log(dragId[0] + (+dragId[1] + 1));
   console.log(playerTurn);
 
-  // playerTurn === "white"
-  //   ? (dragPlusOneRow = dragId[0] + (+dragId[1] + 1))
-  //   : (dragPlusOneRow = dragId[0] + (+dragId[1] - 1));
-
-  // playerTurn === "white"
-  //   ? (dragPlusTwoRow = dragId[0] + (+dragId[1] + 2))
-  //   : (dragPlusTwoRow = dragId[0] + (+dragId[1] - 2));
-
-  const rowForward = playerTurn === "white" ? 1 : -1;
-
-  const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward);
-  const dragPlusTwoRow = dragId[0] + (parseInt(dragId[1]) + 2 * rowForward);
-
-  // startPlusOneRow = dragId[0] + (+dragId[1] + 1);
-  // startPlusTwoRows = dragId[0] + (+dragId[1] + 2);
-  console.log(dragPlusOneRow);
-  // console.log(typeof startPlusOneRow);
-  const forwardOne = document.querySelector(
-    `div[square-id = "${dragPlusOneRow}"]`
-  );
-  if (!forwardOne.firstChild) {
-    movements.push(dragPlusOneRow);
+  if (draggedPiece === "pawn") {
+    validPawnMoves();
   }
-  const forwardTwo = document.querySelector(
-    `div[square-id = "${dragPlusTwoRow}"]`
-  );
-  if (!forwardTwo.firstChild) {
-    movements.push(dragPlusTwoRow);
-  }
-  // const forwardOne = document.querySelector('div[square-id="h3"]'); // ok
-  // const forwardOne = document.getElementById("h3");
-  // const forwardOne = document.querySelector("h3");
-  // const forwardOne = document.querySelector(dragId[0] + (+dragId[1] + 1));
-  console.log(movements);
-
-  // const forwardOne = `${file}${rank + 1}`;
-  // const forwardTwo = `${file}${rank + 2}`;
-  // const captureLeft = `${String.fromCharCode(file.charCodeAt(0) - 1)}${
-  //   rank + 1
-  // }`;
-  // const captureRight = `${String.fromCharCode(file.charCodeAt(0) + 1)}${
-  //   rank + 1
-  // }`;
-
-  // // Regular move: one square forward
-  // if (isSquareEmpty(forwardOne, board)) {
-  //     moves.push(forwardOne);
-
-  //     // Double move: two squares forward (only from the initial position)
-  //     if (rank === 2 && isSquareEmpty(forwardTwo, board)) {
-  //         moves.push(forwardTwo);
-  //     }
-  //   }
 }
+
+// console.log(movements);
 
 function dragOver(e) {
   e.preventDefault();
@@ -184,16 +106,26 @@ function dragOver(e) {
 
 function dragDrop(e) {
   e.stopPropagation();
-  const outBoard = e.target.parentNode.id;
-  console.log(e.target.parentNode);
-  console.log("parent node id: ", outBoard);
+  console.log(movements);
 
   let dropId = e.target.parentNode.getAttribute("square-id");
+  console.log(dropId);
+
+  // if (!movements.includes(dropId)) {
+  //   console.log("movement not allowed");
+  //   movements = [];
+  //   return;
+  // }
   if (dropId === null) {
-    console.log("parent dropId is null");
+    // const outBoard = e.target.parentNode.id;
+    // console.log(e.target.parentNode);
+    // console.log("parent node id: ", outBoard);
+
+    console.log("parent dropId is null (empty square)");
     // console.log(e.target.getAttribute("square-id"));
     dropId = e.target.getAttribute("square-id");
     console.log(dropId);
+    console.log(typeof dropId);
   }
 
   // if (!dropId) {
@@ -201,11 +133,25 @@ function dragDrop(e) {
   //   return;
   // }
   console.log("drop id: ", dropId);
-  console.log("dragged: ", draggedElement);
-  console.log(draggedElement.getAttribute("id"));
-  // console.log("e.target : ", e.target);..getAttribute("square-id")ibute("square-id")bute("square-id")
+
+  movements.includes(dropId)
+    ? console.log("include in valid moves, it is true")
+    : console.log("not include in valid moves, it is false");
+
+  !movements.includes(dropId)
+    ? console.log("not include in valid moves")
+    : console.log("include in valid moves");
+
+  if (e.target.classList.contains(playerTurn) || !movements.includes(dropId)) {
+    console.log("movement not allowed");
+    movements = [];
+    return;
+  }
+
+  console.log("dragged: ", draggedDiv);
+  console.log(draggedDiv.getAttribute("id"));
   console.log("e.target id : ", e.target.getAttribute("square-id"));
-  // const currentPlayer = draggedElement.classList.contains(playerTurn); // not necessary
+  // const currentPlayer = draggedDiv.classList.contains(playerTurn); // not necessary
   console.log("current player: " + playerTurn);
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
   console.log("Opponent player: " + opponentPlayer);
@@ -217,33 +163,29 @@ function dragDrop(e) {
 
   if (taken) {
     // if (taken && valid) {
-    e.target.parentNode.append(draggedElement);
+    e.target.parentNode.append(draggedDiv);
     e.target.remove();
     // console.log("Valid move and take");
     // e.target.remove();
-    // e.target.parentNode.append(draggedElement);
+    // e.target.parentNode.append(draggedDiv);
     movements = [];
     changePlayer();
     return;
   }
 
-  if (e.target.classList.contains(playerTurn)) {
-    console.log("movement not allowed");
-    return;
-  }
   // e.target.classList.contains(playerTurn) &&
   //   console.log("movement not allowed");
 
   if (e.target.childElementCount === 0) {
-    e.target.append(draggedElement);
+    e.target.append(draggedDiv);
     movements = [];
     changePlayer();
     return;
   }
 
-  //   e.target.parentNode.append(draggedElement);
+  //   e.target.parentNode.append(draggedDiv);
   //   e.target.remove();
-  //   e.target.append(draggedElement);
+  //   e.target.append(draggedDiv);
   // e.target.classList.contains(playerTurn)
   // ? console.log("movement not allowed")
   // : // ? alert(playerTurn + " can't do that")
