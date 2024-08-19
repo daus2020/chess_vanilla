@@ -162,9 +162,64 @@ function dragDrop(e) {
   //   console.log("movement not allowed");
 
   if (e.target.childElementCount === 0) {
+    console.log("line 165");
     if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
     }
+
+    let diagonalPawnMovement =
+      Math.abs(dragId[0].charCodeAt(0) - dropId[0].charCodeAt(0)) === 1;
+    console.log(diagonalPawnMovement);
+    if (draggedPiece === "pawn" && diagonalPawnMovement) {
+      // if (draggedPiece === "pawn" && diagonalPawnMovement === 1) {
+      console.log("Pawn dragged");
+      console.log("diagonal pawn moved");
+      document.querySelector(".enpass").remove();
+    }
+
+    const enpasses = document.querySelectorAll(".enpass");
+    console.log(enpasses);
+
+    if (enpasses.length === 2) {
+      console.log("Exist 2 enpass class");
+      // enpasses.forEach((el) =>
+      //   el.classList.contains(`.${opponentPlayer}`).classList.remove("enpass")
+      // );
+    }
+    for (const enpassDiv of enpasses) {
+      if (enpassDiv.classList.contains(opponentPlayer)) {
+        enpassDiv.classList.remove("enpass");
+        break; // Stop after removing from the first matching div
+      }
+    }
+
+    // const enpassDiv = document.querySelector(".enpass");
+    // console.log(enpassDiv);
+
+    // const oppDiv = document.querySelectorAll(opponentPlayer);
+    // console.log(oppDiv);
+
+    // let opponentsPieces = document.querySelector(opponentPlayer);
+
+    // if (enpassDiv.classList.contains(opponentPlayer)) {
+    //   console.log("Exist enemy enpass class");
+    //   enpassDiv.classList.remove("enpass");
+    // }
+
+    // const enpassDiv = document.querySelector(".enpass");
+    // console.log(enpassDiv);
+
+    // if (draggedPiece === "pawn" && enpassDiv) {
+    //   document.querySelector(".enpass").classList.remove("enpass");
+    // }
+    // const enpassClassExist = document.querySelector(".enpass");
+    // console.log(enpassClassExist);
+
+    // if enpassClassExist and it is from opposite player
+
+    // if (enpassClassExist) {
+    //   enpassDiv.classList.remove("enpass");
+    // }
 
     e.target.append(draggedDiv);
     movements = [];

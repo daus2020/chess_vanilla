@@ -48,7 +48,7 @@ function validPawnMoves() {
   }
 
   //  Check if pawn can capture diagonally
-  //  LEFT: Current pawn coord plus one row and one column to the left
+  //  LEFT: Current pawn coord plus one row and one column to the left with opponent or without it (en passant potential capture)
   if (dragId[0] !== "a") {
     const dragLeftId = String.fromCharCode(dragId[0].charCodeAt(0) - 1);
     const dragPlusOneLeft = dragLeftId + (parseInt(dragId[1]) + rowForward);
@@ -68,17 +68,39 @@ function validPawnMoves() {
     if (leftDiagonal && isLeftDiagonalOpponent) {
       movements.push(dragPlusOneLeft);
     }
+
+    //  En passant potential capture: left diagonal empty and opponent pawn on left with "enpass" class
+    const leftSquareId = dragLeftId + dragId[1];
+    console.log(leftSquareId);
+
+    const leftSquare = document.querySelector(
+      `div[square-id = "${leftSquareId}"]`
+    );
+
+    const isLeftOpponent = leftSquare?.firstChild?.classList.contains(
+      playerTurn === "white" ? "black" : "white"
+    );
+    const isLeftEnpass = leftSquare?.firstChild?.classList.contains("enpass");
+    // left diagonal empty and opponent pawn on left with "enpass" class
+    if (
+      isLeftDiagonalOpponent === undefined &&
+      isLeftOpponent &&
+      isLeftEnpass
+    ) {
+      movements.push(dragPlusOneLeft);
+    }
   }
-  //  RIGHT: Current pawn coord plus one row and one column to the right
+  //  RIGHT: Current pawn coord plus one row and one column to the right with opponent
   if (dragId[0] !== "h") {
     const dragRightId = String.fromCharCode(dragId[0].charCodeAt(0) + 1);
     const dragPlusOneRight = dragRightId + (parseInt(dragId[1]) + rowForward);
-    console.log("Right diagonal id: ", dragPlusOneRight);
     const rightDiagonal = document.querySelector(
       `div[square-id = "${dragPlusOneRight}"]`
     );
 
     console.log(rightDiagonal);
+
+    console.log("Right diagonal id: ", dragPlusOneRight);
 
     const isRightDiagonalOpponent =
       rightDiagonal?.firstChild?.classList.contains(
@@ -88,6 +110,27 @@ function validPawnMoves() {
     console.log(isRightDiagonalOpponent);
 
     if (rightDiagonal && isRightDiagonalOpponent) {
+      movements.push(dragPlusOneRight);
+    }
+
+    //  En passant potential capture: right diagonal empty and opponent pawn on right with "enpass" class
+    const rightSquareId = dragRightId + dragId[1];
+    console.log(rightSquareId);
+
+    const rightSquare = document.querySelector(
+      `div[square-id = "${rightSquareId}"]`
+    );
+
+    const isRightOpponent = rightSquare?.firstChild?.classList.contains(
+      playerTurn === "white" ? "black" : "white"
+    );
+    const isRightEnpass = rightSquare?.firstChild?.classList.contains("enpass");
+    // left diagonal empty and opponent pawn on left with "enpass" class
+    if (
+      isRightDiagonalOpponent === undefined &&
+      isRightOpponent &&
+      isRightEnpass
+    ) {
       movements.push(dragPlusOneRight);
     }
   }
