@@ -99,6 +99,23 @@ function dragStart(e) {
   if (draggedPiece === "knight") {
     validKnightMoves();
   }
+  // if (draggedPiece === "bishop") {
+  //   validBishopMoves();
+  // }
+  if (draggedPiece === "rook") {
+    validRookMoves();
+  }
+  // if (draggedPiece === "queen") {
+  //   validQueenMoves();
+  // }
+  // if (draggedPiece === "king") {
+  //   validKingMoves();
+  // }
+  console.log("movements: ", movements);
+  // movements = [];
+  // changePlayer();
+  // e.target.appendChild(draggedDiv);
+  // console.log("After drop", movements);
 }
 
 // console.log(movements);
@@ -123,14 +140,6 @@ function dragDrop(e) {
   }
   //
   console.log("drop id: ", dropId);
-
-  // movements.includes(dropId)
-  //   /? console.log("include in valid moves, it is true")
-  //   : console.log("not include in valid moves, it is false");
-
-  //    /!movements.includes(dropId)
-  //   /? console.log("not include in valid moves")
-  //   : console.log("include in valid moves");
 
   if (e.target.classList.contains(playerTurn) || !movements.includes(dropId)) {
     console.log("movement not allowed");

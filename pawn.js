@@ -7,7 +7,7 @@ function validPawnMoves() {
 
   const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
 
-  //  Current pawn coord plus one row
+  //  Current pawn coord plus one row forward
   const forwardOne = document.querySelector(
     `div[square-id = "${dragPlusOneRow}"]`
   );
