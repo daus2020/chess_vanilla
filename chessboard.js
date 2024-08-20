@@ -96,6 +96,9 @@ function dragStart(e) {
   if (draggedPiece === "pawn") {
     validPawnMoves();
   }
+  if (draggedPiece === "knight") {
+    validKnightMoves();
+  }
 }
 
 // console.log(movements);
