@@ -73,7 +73,7 @@ function changePlayer() {
 
 let dragId;
 let draggedDiv;
-let dragLetter;
+let dragCol;
 let dragRow;
 let dragPlusOneRow;
 let dragPlusTwoRow;
@@ -82,10 +82,10 @@ let movements = [];
 function dragStart(e) {
   dragId = e.target.parentNode.getAttribute("square-id");
   console.log("drag id: ", dragId); // i.e. h2
-  dragLetter = dragId[0];
-  dragRow = dragId[1];
-  console.log("drag letter: ", dragId[0]); // h
-  console.log("drag row: ", dragId[1]); // 2
+  dragCol = dragId[0]; // could be from a -> h  string
+  dragRow = dragId[1]; // could be from 1 -> 8  string
+  console.log("drag letter: ", dragCol); // h
+  console.log("drag row: ", dragRow); // 2
   draggedDiv = e.target;
   draggedPiece = draggedDiv.getAttribute("id");
   console.log("dragged div", e.target); // <div id="pawn" class="piece white" draggable="true">
@@ -112,10 +112,6 @@ function dragStart(e) {
   //   validKingMoves();
   // }
   console.log("movements: ", movements);
-  // movements = [];
-  // changePlayer();
-  // e.target.appendChild(draggedDiv);
-  // console.log("After drop", movements);
 }
 
 // console.log(movements);
@@ -128,16 +124,27 @@ function dragDrop(e) {
   e.stopPropagation();
   console.log(movements);
 
-  let dropId = e.target.parentNode.getAttribute("square-id");
-  console.log(dropId);
+  let dropId;
 
-  if (dropId === null) {
-    console.log("parent dropId is null (empty square)");
-    // console.log(e.target.getAttribute("square-id"));
-    dropId = e.target.getAttribute("square-id");
-    console.log(dropId);
-    console.log(typeof dropId);
-  }
+  // let dropId = e.target.parentNode.getAttribute("square-id"); // c3 for example
+  // let dropRow = dropId[1];
+  // console.log(dropId);
+
+  e.target.parentNode.getAttribute("square-id") === null
+    ? (dropId = e.target.getAttribute("square-id"))
+    : (dropId = e.target.parentNode.getAttribute("square-id"));
+
+  let dropCol = dropId[0];
+  let dropRow = dropId[1];
+
+  console.log(dropId);
+  // if (dropId === null) {
+  //   console.log("parent dropId is null (empty square)");
+  //   // console.log(e.target.getAttribute("square-id"));
+  //   dropId = e.target.getAttribute("square-id");
+  //   console.log(dropId);
+  //   console.log(typeof dropId);
+  // }
   //
   console.log("drop id: ", dropId);
 
@@ -147,14 +154,8 @@ function dragDrop(e) {
     return;
   }
 
-  // console.log("dragged: ", draggedDiv);
-  // console.log(draggedDiv.getAttribute("id"));
-  // console.log("e.target id : ", e.target.getAttribute("square-id"));
-  // const currentPlayer = draggedDiv.classList.contains(playerTurn); // not necessary
-  // console.log("current player: " + playerTurn);
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
-  // console.log("Opponent player: " + opponentPlayer);
-  // console.log("current opponent: " + opponentPlayer); // ok
+
   const taken =
     // e.target.classList.contains("piece") &&  ?// not necessary
     e.target.classList.contains(opponentPlayer);
@@ -175,12 +176,13 @@ function dragDrop(e) {
 
   if (e.target.childElementCount === 0) {
     console.log("line 165");
-    if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
+    if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
+      // if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
     }
 
     let diagonalPawnMovement =
-      Math.abs(dragId[0].charCodeAt(0) - dropId[0].charCodeAt(0)) === 1;
+      Math.abs(dragCol.charCodeAt(0) - dropCol.charCodeAt(0)) === 1;
     console.log(diagonalPawnMovement);
     if (draggedPiece === "pawn" && diagonalPawnMovement) {
       // if (draggedPiece === "pawn" && diagonalPawnMovement === 1) {
@@ -205,40 +207,9 @@ function dragDrop(e) {
       }
     }
 
-    // const enpassDiv = document.querySelector(".enpass");
-    // console.log(enpassDiv);
-
-    // const oppDiv = document.querySelectorAll(opponentPlayer);
-    // console.log(oppDiv);
-
-    // let opponentsPieces = document.querySelector(opponentPlayer);
-
-    // if (enpassDiv.classList.contains(opponentPlayer)) {
-    //   console.log("Exist enemy enpass class");
-    //   enpassDiv.classList.remove("enpass");
-    // }
-
-    // const enpassDiv = document.querySelector(".enpass");
-    // console.log(enpassDiv);
-
-    // if (draggedPiece === "pawn" && enpassDiv) {
-    //   document.querySelector(".enpass").classList.remove("enpass");
-    // }
-    // const enpassClassExist = document.querySelector(".enpass");
-    // console.log(enpassClassExist);
-
-    // if enpassClassExist and it is from opposite player
-
-    // if (enpassClassExist) {
-    //   enpassDiv.classList.remove("enpass");
-    // }
-
     e.target.append(draggedDiv);
     movements = [];
     changePlayer();
     return;
   }
 }
-
-// square.firstChild.has.setAttribute("draggable", true);
-// document.getElementByClass("white").setAttribute("draggable", false);
