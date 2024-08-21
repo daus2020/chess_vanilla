@@ -1,11 +1,10 @@
 function validPawnMoves() {
-  //   console.log("Square id: ", dragId);
-  //   console.log("Current player: ", playerTurn);
-
+  // remember that pawn always have to move forward, never go backwards
   const rowForward = playerTurn === "white" ? 1 : -1;
-  console.log("pawn start at ", dragId); // i.e. draggId = h2  -> dragId[0]= h and dragId[1]= 2
+  console.log("pawn start at ", dragId); // i.e. draggId = h2  -> dragId[0]= h and dragRow= 2
 
-  const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
+  const dragPlusOneRow = dragCol + (parseInt(dragRow) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
+  //   const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
 
   //  Current pawn coord plus one row forward
   const forwardOne = document.querySelector(
@@ -28,10 +27,12 @@ function validPawnMoves() {
   //  Check this only if pawn is in row 2 (white) or row 7 (black)
   //  Current pawn coord plus two rows
   if (
-    (playerTurn === "white" && dragId[1] === "2") ||
-    (playerTurn === "black" && dragId[1] === "7")
+    (playerTurn === "white" && dragRow === "2") ||
+    // (playerTurn === "white" && dragId[1] === "2") ||
+    (playerTurn === "black" && dragRow === "7")
+    // (playerTurn === "black" && dragId[1] === "7")
   ) {
-    const dragPlusTwoRow = dragId[0] + (parseInt(dragId[1]) + 2 * rowForward); // dragId[0] + (+(dragId[1]) + 2 * rowForward)
+    const dragPlusTwoRow = dragCol + (parseInt(dragRow) + 2 * rowForward); // dragId[0] + (+(dragId[1]) + 2 * rowForward)
     const forwardTwo = document.querySelector(
       `div[square-id = "${dragPlusTwoRow}"]`
     );
@@ -49,9 +50,9 @@ function validPawnMoves() {
 
   //  Check if pawn can capture diagonally
   //  LEFT: Current pawn coord plus one row and one column to the left with opponent or without it (en passant potential capture)
-  if (dragId[0] !== "a") {
-    const dragLeftId = String.fromCharCode(dragId[0].charCodeAt(0) - 1);
-    const dragPlusOneLeft = dragLeftId + (parseInt(dragId[1]) + rowForward);
+  if (dragCol !== "a") {
+    const dragLeftId = String.fromCharCode(dragCol.charCodeAt(0) - 1);
+    const dragPlusOneLeft = dragLeftId + (parseInt(dragRow) + rowForward);
     const leftDiagonal = document.querySelector(
       `div[square-id = "${dragPlusOneLeft}"]`
     );
@@ -70,7 +71,7 @@ function validPawnMoves() {
     }
 
     //  En passant potential capture: left diagonal empty and opponent pawn on left with "enpass" class
-    const leftSquareId = dragLeftId + dragId[1];
+    const leftSquareId = dragLeftId + dragRow;
     console.log(leftSquareId);
 
     const leftSquare = document.querySelector(
@@ -91,9 +92,9 @@ function validPawnMoves() {
     }
   }
   //  RIGHT: Current pawn coord plus one row and one column to the right with opponent
-  if (dragId[0] !== "h") {
-    const dragRightId = String.fromCharCode(dragId[0].charCodeAt(0) + 1);
-    const dragPlusOneRight = dragRightId + (parseInt(dragId[1]) + rowForward);
+  if (dragCol !== "h") {
+    const dragRightId = String.fromCharCode(dragCol.charCodeAt(0) + 1);
+    const dragPlusOneRight = dragRightId + (parseInt(dragRow) + rowForward);
     const rightDiagonal = document.querySelector(
       `div[square-id = "${dragPlusOneRight}"]`
     );
@@ -114,7 +115,7 @@ function validPawnMoves() {
     }
 
     //  En passant potential capture: right diagonal empty and opponent pawn on right with "enpass" class
-    const rightSquareId = dragRightId + dragId[1];
+    const rightSquareId = dragRightId + dragRow;
     console.log(rightSquareId);
 
     const rightSquare = document.querySelector(
@@ -134,46 +135,6 @@ function validPawnMoves() {
       movements.push(dragPlusOneRight);
     }
   }
-  //   const dragPlusOneLeft = dragId[0] + (parseInt(dragId[1]) + rowForward);
-  //   const leftDiagonal = document.querySelector(
-  //     `div[square-id = "${dragPlusOneLeft}"]`
-  //   );
-
-  //  Current pawn coord plus one row and one column to the right
-  //   if (dragId[0] !== "h") {
-  //     const dragPlusOneRight = dragId[0] + (parseInt(dragId[1]) + rowForward);
-  //     const rightDiagonal = document.querySelector(
-  //       `div[square-id = "${dragPlusOneRight}"]`
-  //     );
-  //     console.log("Right diagonal: ", rightDiagonal);
-  //   }
-
-  //   console.log("Left diagonal: ", leftDiagonal);
-
-  //   const isLeftDiagonalOccupied = leftDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-  //   const isRightDiagonalOccupied = rightDiagonal
-
-  //   const leftDiagonal = document.querySelector(
-  //     `div[square-id = "${dragId[0] + (parseInt(dragId[1]) + rowForward)}"]`
-  //   );
-  //   const rightDiagonal = document.querySelector(
-  //     `div[square-id = "${dragId[0] + (parseInt(dragId[1]) - rowForward)}"]`
-  //   );
-
-  //   //   console.log("Left diagonal: ", leftDiagonal);
-  //   //   console.log("Right diagonal: ", rightDiagonal);
-
-  //   const isLeftDiagonalOccupied = leftDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-  //   const isRightDiagonalOccupied = rightDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-
-  //   if (isLeftDiagonal && isLeftDiagonalOccupied) {
-  //     movements.push(leftDiagonal.getAttribute("square-id"));
 
   console.log(movements);
   return movements;

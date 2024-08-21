@@ -73,7 +73,7 @@ function changePlayer() {
 
 let dragId;
 let draggedDiv;
-let dragLetter;
+let dragCol;
 let dragRow;
 let dragPlusOneRow;
 let dragPlusTwoRow;
@@ -82,10 +82,10 @@ let movements = [];
 function dragStart(e) {
   dragId = e.target.parentNode.getAttribute("square-id");
   console.log("drag id: ", dragId); // i.e. h2
-  dragLetter = dragId[0];
+  dragCol = dragId[0];
   dragRow = dragId[1];
-  console.log("drag letter: ", dragId[0]); // h
-  console.log("drag row: ", dragId[1]); // 2
+  console.log("drag column: ", dragCol); // h
+  console.log("drag row: ", dragRow); // 2
   draggedDiv = e.target;
   draggedPiece = draggedDiv.getAttribute("id");
   console.log("dragged div", e.target); // <div id="pawn" class="piece white" draggable="true">
@@ -131,6 +131,7 @@ function dragDrop(e) {
   let dropId = e.target.parentNode.getAttribute("square-id");
   console.log(dropId);
 
+  // if dropId is null then square it is empty
   if (dropId === null) {
     console.log("parent dropId is null (empty square)");
     // console.log(e.target.getAttribute("square-id"));
