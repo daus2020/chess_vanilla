@@ -108,9 +108,9 @@ function dragStart(e) {
   if (draggedPiece === "knight") {
     validKnightMoves();
   }
-  // if (draggedPiece === "bishop") {
-  //   validBishopMoves();
-  // }
+  if (draggedPiece === "bishop") {
+    validBishopMoves();
+  }
   if (draggedPiece === "rook") {
     validRookMoves();
   }
@@ -135,10 +135,7 @@ function dragDrop(e) {
 
   let dropId;
 
-  // let dropId = e.target.parentNode.getAttribute("square-id"); // c3 for example
-  // let dropRow = dropId[1];
-  // console.log(dropId);
-
+  // Here dropId could be, for example "c3" where first index represent the column and the second index the row is dropped
   e.target.parentNode.getAttribute("square-id") === null
     ? (dropId = e.target.getAttribute("square-id"))
     : (dropId = e.target.parentNode.getAttribute("square-id"));
@@ -147,14 +144,7 @@ function dragDrop(e) {
   let dropRow = dropId[1];
 
   console.log(dropId);
-  // if (dropId === null) {
-  //   console.log("parent dropId is null (empty square)");
-  //   // console.log(e.target.getAttribute("square-id"));
-  //   dropId = e.target.getAttribute("square-id");
-  //   console.log(dropId);
-  //   console.log(typeof dropId);
-  // }
-  //
+
   console.log("drop id: ", dropId);
 
   if (e.target.classList.contains(playerTurn) || !moves.includes(dropId)) {

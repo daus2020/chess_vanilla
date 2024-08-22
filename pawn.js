@@ -1,22 +1,14 @@
 function validPawnMoves() {
-  // remember that pawn always have to move forward, never go backwards
+  // remember that pawn always have to move forward and vertically, never go backwards nor diagonal
   const rowForward = playerTurn === "white" ? 1 : -1;
   console.log("pawn start at ", dragId); // i.e. draggId = h2  -> dragId[0]= h and dragRow= 2
 
   const dragPlusOneRow = dragCol + (parseInt(dragRow) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
-  //   const dragPlusOneRow = dragId[0] + (parseInt(dragId[1]) + rowForward); // or dragId[0] + (+(dragId[1]) + rowForward)
 
   //  Current pawn coord plus one row forward
   const forwardOne = document.querySelector(
     `div[square-id = "${dragPlusOneRow}"]`
   );
-  //   if (forwardOne.firstChild === null) {
-  //     console.log(dragPlusOneRow, "is empty");
-  //   }
-
-  // function isEmpty(square) {
-  //   return square.firstChild === null;
-  // }
 
   let isNextRowEmpty = isEmpty(forwardOne);
 
@@ -28,9 +20,7 @@ function validPawnMoves() {
   //  Current pawn coord plus two rows
   if (
     (playerTurn === "white" && dragRow === "2") ||
-    // (playerTurn === "white" && dragId[1] === "2") ||
     (playerTurn === "black" && dragRow === "7")
-    // (playerTurn === "black" && dragId[1] === "7")
   ) {
     const dragPlusTwoRow = dragCol + (parseInt(dragRow) + 2 * rowForward); // dragId[0] + (+(dragId[1]) + 2 * rowForward)
     const forwardTwo = document.querySelector(
@@ -135,6 +125,9 @@ function validPawnMoves() {
       moves.push(dragPlusOneRight);
     }
   }
+
+  // Pend when white pawn get row "8" or black pawn get row "1"
+  // and its subsequent promotion, exchanging for a queen, rook, bishop or knight.
 
   console.log(moves);
   return moves;

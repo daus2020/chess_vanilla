@@ -2,7 +2,6 @@ function validRookMoves() {
   console.log("Valid rook moves");
 
   //  UP
-  console.log("line 40rook");
   for (let i = parseInt(dragRow) + 1; i <= 8; i++) {
     const squareUp = dragCol + i;
 
