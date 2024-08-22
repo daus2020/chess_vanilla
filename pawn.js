@@ -135,49 +135,6 @@ function validPawnMoves() {
       moves.push(dragPlusOneRight);
     }
   }
-<<<<<<< HEAD
-=======
-  //   const dragPlusOneLeft = dragId[0] + (parseInt(dragId[1]) + rowForward);
-  //   const leftDiagonal = document.querySelector(
-  //     `div[square-id = "${dragPlusOneLeft}"]`
-  //   );
-
-  //  Current pawn coord plus one row and one column to the right
-  //   if (dragId[0] !== "h") {
-  //     const dragPlusOneRight = dragId[0] + (parseInt(dragId[1]) + rowForward);
-  //     const rightDiagonal = document.querySelector(
-  //       `div[square-id = "${dragPlusOneRight}"]`
-  //     );
-  //     console.log("Right diagonal: ", rightDiagonal);
-  //   }
-
-  //   console.log("Left diagonal: ", leftDiagonal);
-
-  //   const isLeftDiagonalOccupied = leftDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-  //   const isRightDiagonalOccupied = rightDiagonal
-
-  //   const leftDiagonal = document.querySelector(
-  //     `div[square-id = "${dragId[0] + (parseInt(dragId[1]) + rowForward)}"]`
-  //   );
-  //   const rightDiagonal = document.querySelector(
-  //     `div[square-id = "${dragId[0] + (parseInt(dragId[1]) - rowForward)}"]`
-  //   );
-
-  //   //   console.log("Left diagonal: ", leftDiagonal);
-  //   //   console.log("Right diagonal: ", rightDiagonal);
-
-  //   const isLeftDiagonalOccupied = leftDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-  //   const isRightDiagonalOccupied = rightDiagonal?.firstChild?.classList.contains(
-  //     playerTurn === "white"? "black" : "white"
-  //   );
-
-  //   if (isLeftDiagonal && isLeftDiagonalOccupied) {
-  //     moves.push(leftDiagonal.getAttribute("square-id"));
->>>>>>> rooks
 
   console.log(moves);
   return moves;
