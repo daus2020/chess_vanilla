@@ -147,17 +147,6 @@ function dragDrop(e) {
   let dropRow = dropId[1];
 
   console.log(dropId);
-<<<<<<< HEAD
-
-  // if dropId is null then square it is empty
-  if (dropId === null) {
-    console.log("parent dropId is null (empty square)");
-    // console.log(e.target.getAttribute("square-id"));
-    dropId = e.target.getAttribute("square-id");
-    console.log(dropId);
-    console.log(typeof dropId);
-  }
-=======
   // if (dropId === null) {
   //   console.log("parent dropId is null (empty square)");
   //   // console.log(e.target.getAttribute("square-id"));
@@ -165,7 +154,6 @@ function dragDrop(e) {
   //   console.log(dropId);
   //   console.log(typeof dropId);
   // }
->>>>>>> rooks
   //
   console.log("drop id: ", dropId);
 
