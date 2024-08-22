@@ -63,15 +63,12 @@ function validKnightMoves() {
   //   If there are pieces between the knight and the destination square, the knight cannot move to that square.
   //   - 1) 2 squares in any direction (up or down) and then 1 square in a perpendicular direction
 
-  coords.includes(twoRowsUpOneColLeft) && movements.push(twoRowsUpOneColLeft);
-  coords.includes(twoRowsUpOneColRight) && movements.push(twoRowsUpOneColRight);
-  coords.includes(twoRowsDownOneColLeft) &&
-    movements.push(twoRowsDownOneColLeft);
-  coords.includes(twoRowsDownOneColRight) &&
-    movements.push(twoRowsDownOneColRight);
-  coords.includes(oneRowUpTwoColLeft) && movements.push(oneRowUpTwoColLeft);
-  coords.includes(oneRowDownTwoColLeft) && movements.push(oneRowDownTwoColLeft);
-  coords.includes(oneRowUpTwoColRight) && movements.push(oneRowUpTwoColRight);
-  coords.includes(oneRowDownTwoColRight) &&
-    movements.push(oneRowDownTwoColRight);
+  coords.includes(twoRowsUpOneColLeft) && moves.push(twoRowsUpOneColLeft);
+  coords.includes(twoRowsUpOneColRight) && moves.push(twoRowsUpOneColRight);
+  coords.includes(twoRowsDownOneColLeft) && moves.push(twoRowsDownOneColLeft);
+  coords.includes(twoRowsDownOneColRight) && moves.push(twoRowsDownOneColRight);
+  coords.includes(oneRowUpTwoColLeft) && moves.push(oneRowUpTwoColLeft);
+  coords.includes(oneRowDownTwoColLeft) && moves.push(oneRowDownTwoColLeft);
+  coords.includes(oneRowUpTwoColRight) && moves.push(oneRowUpTwoColRight);
+  coords.includes(oneRowDownTwoColRight) && moves.push(oneRowDownTwoColRight);
 }
