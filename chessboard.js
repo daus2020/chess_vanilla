@@ -77,7 +77,11 @@ let dragCol;
 let dragRow;
 let dragPlusOneRow;
 let dragPlusTwoRow;
-let movements = [];
+let moves = [];
+
+function isEmpty(square) {
+  return square.firstChild === null;
+}
 
 function dragStart(e) {
   dragId = e.target.parentNode.getAttribute("square-id");
@@ -92,6 +96,11 @@ function dragStart(e) {
   console.log("dragged piece: ", draggedDiv.getAttribute("id")); // pawn
   // console.log(dragId[0] + (+dragId[1] + 1));
   console.log(playerTurn);
+  if (!dragId) {
+    e.preventDefault(); // Stops the drag operation
+    console.log("Drag stopped: square-id is null.");
+    return; // Exit the function early
+  }
 
   if (draggedPiece === "pawn") {
     validPawnMoves();
@@ -111,10 +120,10 @@ function dragStart(e) {
   // if (draggedPiece === "king") {
   //   validKingMoves();
   // }
-  console.log("movements: ", movements);
+  console.log("moves: ", moves);
 }
 
-// console.log(movements);
+// console.log(moves);
 
 function dragOver(e) {
   e.preventDefault();
@@ -122,7 +131,7 @@ function dragOver(e) {
 
 function dragDrop(e) {
   e.stopPropagation();
-  console.log(movements);
+  console.log(moves);
 
   let dropId;
 
@@ -148,9 +157,9 @@ function dragDrop(e) {
   //
   console.log("drop id: ", dropId);
 
-  if (e.target.classList.contains(playerTurn) || !movements.includes(dropId)) {
+  if (e.target.classList.contains(playerTurn) || !moves.includes(dropId)) {
     console.log("movement not allowed");
-    movements = [];
+    moves = [];
     return;
   }
 
@@ -166,7 +175,7 @@ function dragDrop(e) {
     e.target.parentNode.append(draggedDiv);
     e.target.remove();
 
-    movements = [];
+    moves = [];
     changePlayer();
     return;
   }
@@ -175,7 +184,7 @@ function dragDrop(e) {
   //   console.log("movement not allowed");
 
   if (e.target.childElementCount === 0) {
-    console.log("line 165");
+    console.log("line 187");
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
       // if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
@@ -208,7 +217,7 @@ function dragDrop(e) {
     }
 
     e.target.append(draggedDiv);
-    movements = [];
+    moves = [];
     changePlayer();
     return;
   }

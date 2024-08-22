@@ -15,14 +15,14 @@ function validPawnMoves() {
   //     console.log(dragPlusOneRow, "is empty");
   //   }
 
-  function isEmpty(square) {
-    return square.firstChild === null;
-  }
+  // function isEmpty(square) {
+  //   return square.firstChild === null;
+  // }
 
-  isNextRowEmpty = isEmpty(forwardOne);
+  let isNextRowEmpty = isEmpty(forwardOne);
 
   if (isNextRowEmpty) {
-    movements.push(dragPlusOneRow);
+    moves.push(dragPlusOneRow);
   }
 
   //  Check this only if pawn is in row 2 (white) or row 7 (black)
@@ -43,7 +43,7 @@ function validPawnMoves() {
     isNextRow2Empty = isEmpty(forwardTwo);
 
     if (isNextRowEmpty && isNextRow2Empty) {
-      movements.push(dragPlusTwoRow);
+      moves.push(dragPlusTwoRow);
     }
   }
 
@@ -66,7 +66,7 @@ function validPawnMoves() {
     console.log(isLeftDiagonalOpponent);
 
     if (leftDiagonal && isLeftDiagonalOpponent) {
-      movements.push(dragPlusOneLeft);
+      moves.push(dragPlusOneLeft);
     }
 
     //  En passant potential capture: left diagonal empty and opponent pawn on left with "enpass" class
@@ -87,7 +87,7 @@ function validPawnMoves() {
       isLeftOpponent &&
       isLeftEnpass
     ) {
-      movements.push(dragPlusOneLeft);
+      moves.push(dragPlusOneLeft);
     }
   }
   //  RIGHT: Current pawn coord plus one row and one column to the right with opponent
@@ -110,7 +110,7 @@ function validPawnMoves() {
     console.log(isRightDiagonalOpponent);
 
     if (rightDiagonal && isRightDiagonalOpponent) {
-      movements.push(dragPlusOneRight);
+      moves.push(dragPlusOneRight);
     }
 
     //  En passant potential capture: right diagonal empty and opponent pawn on right with "enpass" class
@@ -131,7 +131,7 @@ function validPawnMoves() {
       isRightOpponent &&
       isRightEnpass
     ) {
-      movements.push(dragPlusOneRight);
+      moves.push(dragPlusOneRight);
     }
   }
   //   const dragPlusOneLeft = dragId[0] + (parseInt(dragId[1]) + rowForward);
@@ -173,8 +173,8 @@ function validPawnMoves() {
   //   );
 
   //   if (isLeftDiagonal && isLeftDiagonalOccupied) {
-  //     movements.push(leftDiagonal.getAttribute("square-id"));
+  //     moves.push(leftDiagonal.getAttribute("square-id"));
 
-  console.log(movements);
-  return movements;
+  console.log(moves);
+  return moves;
 }
