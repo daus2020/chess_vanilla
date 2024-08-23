@@ -1,6 +1,4 @@
 function validKnightMoves() {
-  console.log("Hello from knight.js");
-
   //   Knight has maximum 8 possibles moves
   //   - 2 squares in any direction (up or down) and then 1 square in a perpendicular direction (left or right).
 
@@ -55,13 +53,6 @@ function validKnightMoves() {
     String.fromCharCode(dragId[0].charCodeAt(0) + 2) +
     (parseInt(dragId[1]) - 1);
   console.log(oneRowDownTwoColRight); //
-
-  //   The above 8 moves cover all the possible knight's moves.
-  //   However, for a knight to move to a square, it must not be threatened by an opponent's piece.
-  //   A knight cannot move to a square that is under attack by any other piece.
-  //   In chess, knight moves are checked by checking if there are no pieces between the knight and the destination square.
-  //   If there are pieces between the knight and the destination square, the knight cannot move to that square.
-  //   - 1) 2 squares in any direction (up or down) and then 1 square in a perpendicular direction
 
   coords.includes(twoRowsUpOneColLeft) && moves.push(twoRowsUpOneColLeft);
   coords.includes(twoRowsUpOneColRight) && moves.push(twoRowsUpOneColRight);

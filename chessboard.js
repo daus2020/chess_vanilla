@@ -14,6 +14,8 @@ const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
 
+// let opponentPlayer = playerTurn === "white" ? "black" : "white";
+
 // console.log(coords);  //ok
 
 function createBoard() {
@@ -96,6 +98,8 @@ function dragStart(e) {
   console.log("dragged piece: ", draggedDiv.getAttribute("id")); // pawn
   // console.log(dragId[0] + (+dragId[1] + 1));
   console.log(playerTurn);
+  const opponentPlayer = playerTurn === "white" ? "black" : "white";
+
   if (!dragId) {
     e.preventDefault(); // Stops the drag operation
     console.log("Drag stopped: square-id is null.");
@@ -114,9 +118,9 @@ function dragStart(e) {
   if (draggedPiece === "rook") {
     validRookMoves();
   }
-  // if (draggedPiece === "queen") {
-  //   validQueenMoves();
-  // }
+  if (draggedPiece === "queen") {
+    validQueenMoves();
+  }
   // if (draggedPiece === "king") {
   //   validKingMoves();
   // }
