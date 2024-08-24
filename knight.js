@@ -1,65 +1,42 @@
 function validKnightMoves() {
-  //   Knight has maximum 8 possibles moves
-  //   - 2 squares in any direction (up or down) and then 1 square in a perpendicular direction (left or right).
+  // array representing all 8 possible knight moves, first element represent column moves and second the row moves
+  const offsets = [
+    [1, 2],
+    [2, 1],
+    [-1, 2],
+    [-2, 1],
+    [1, -2],
+    [2, -1],
+    [-1, -2],
+    [-2, -1],
+  ];
 
-  //   1) 2 rows up  1 column left
-  const twoRowsUpOneColLeft =
-    String.fromCharCode(dragId[0].charCodeAt(0) - 1) +
-    (parseInt(dragId[1]) + 2);
-  console.log(twoRowsUpOneColLeft); // ok
+  offsets.forEach(function (offset) {
+    let colOffset = String.fromCharCode(dragCol.charCodeAt(0) + offset[0]);
+    let rowOffset = parseInt(dragRow) + offset[1];
+    if (
+      colOffset >= "a" &&
+      colOffset <= "h" &&
+      rowOffset >= 1 &&
+      rowOffset <= 8
+    ) {
+      console.log(`Move to ${colOffset}${rowOffset}`);
+      const offsetId = colOffset + rowOffset;
+      const squareOffset = document.querySelector(
+        `div[square-id = "${offsetId}"]`
+      );
 
-  //   2) 2 rows up  1 column right
-  const twoRowsUpOneColRight =
-    String.fromCharCode(dragId[0].charCodeAt(0) + 1) +
-    (parseInt(dragId[1]) + 2);
-  console.log(twoRowsUpOneColRight); //
+      const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
-  //   3) 2 rows down  1 column left
-  const twoRowsDownOneColLeft =
-    String.fromCharCode(dragId[0].charCodeAt(0) - 1) +
-    (parseInt(dragId[1]) - 2);
-  console.log(twoRowsDownOneColLeft); // *
-  console.log(String.fromCharCode(dragId[0].charCodeAt(0) - 1));
-  console.log(parseInt(dragId[1]) - 2);
+      const isNextRowOpponent = squareOffset?.firstChild?.classList.contains(
+        playerTurn === "white" ? "black" : "white"
+      );
 
-  //   4) 2 rows down  1 column right
-  const twoRowsDownOneColRight =
-    String.fromCharCode(dragId[0].charCodeAt(0) + 1) +
-    (parseInt(dragId[1]) - 2);
-  console.log(twoRowsDownOneColRight); //*
-  console.log(String.fromCharCode(dragId[0].charCodeAt(0) + 1));
-  console.log(parseInt(dragId[1]) - 2);
-
-  //   5) 1 row up 2 columns left
-  const oneRowUpTwoColLeft =
-    String.fromCharCode(dragId[0].charCodeAt(0) - 2) +
-    (parseInt(dragId[1]) + 1);
-  console.log(oneRowUpTwoColLeft); //
-
-  //   6) 1 row down  2 columns left
-  const oneRowDownTwoColLeft =
-    String.fromCharCode(dragId[0].charCodeAt(0) - 2) +
-    (parseInt(dragId[1]) - 1);
-  console.log(oneRowDownTwoColLeft); //
-
-  //   7) 1 row up  2 columns right
-  const oneRowUpTwoColRight =
-    String.fromCharCode(dragId[0].charCodeAt(0) + 2) +
-    (parseInt(dragId[1]) + 1);
-  console.log(oneRowUpTwoColRight); //
-
-  //   8) 1 row down  2 columns right
-  const oneRowDownTwoColRight =
-    String.fromCharCode(dragId[0].charCodeAt(0) + 2) +
-    (parseInt(dragId[1]) - 1);
-  console.log(oneRowDownTwoColRight); //
-
-  coords.includes(twoRowsUpOneColLeft) && moves.push(twoRowsUpOneColLeft);
-  coords.includes(twoRowsUpOneColRight) && moves.push(twoRowsUpOneColRight);
-  coords.includes(twoRowsDownOneColLeft) && moves.push(twoRowsDownOneColLeft);
-  coords.includes(twoRowsDownOneColRight) && moves.push(twoRowsDownOneColRight);
-  coords.includes(oneRowUpTwoColLeft) && moves.push(oneRowUpTwoColLeft);
-  coords.includes(oneRowDownTwoColLeft) && moves.push(oneRowDownTwoColLeft);
-  coords.includes(oneRowUpTwoColRight) && moves.push(oneRowUpTwoColRight);
-  coords.includes(oneRowDownTwoColRight) && moves.push(oneRowDownTwoColRight);
+      if (isOffsetEmpty) {
+        moves.push(offsetId);
+      } else {
+        isNextRowOpponent && moves.push(offsetId);
+      }
+    }
+  });
 }

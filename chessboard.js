@@ -152,7 +152,7 @@ function dragDrop(e) {
   console.log("drop id: ", dropId);
 
   if (e.target.classList.contains(playerTurn) || !moves.includes(dropId)) {
-    console.log("movement not allowed");
+    console.log("move not allowed");
     moves = [];
     return;
   }
@@ -175,7 +175,7 @@ function dragDrop(e) {
   }
 
   // e.target.classList.contains(playerTurn) &&
-  //   console.log("movement not allowed");
+  //   console.log("move not allowed");
 
   if (e.target.childElementCount === 0) {
     console.log("line 187");
@@ -184,11 +184,11 @@ function dragDrop(e) {
       draggedDiv.classList.add("enpass");
     }
 
-    let diagonalPawnMovement =
+    let diagonalPawnMove =
       Math.abs(dragCol.charCodeAt(0) - dropCol.charCodeAt(0)) === 1;
-    console.log(diagonalPawnMovement);
-    if (draggedPiece === "pawn" && diagonalPawnMovement) {
-      // if (draggedPiece === "pawn" && diagonalPawnMovement === 1) {
+    console.log(diagonalPawnMove);
+    if (draggedPiece === "pawn" && diagonalPawnMove) {
+      // if (draggedPiece === "pawn" && diagonalPawnMove === 1) {
       console.log("Pawn dragged");
       console.log("diagonal pawn moved");
       document.querySelector(".enpass").remove();
