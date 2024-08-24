@@ -11,7 +11,7 @@ function validKingMoves() {
     [0, -1], // down 1 row
     [-1, -1], // diagonal 1 left column & down 1 row
     [-1, 0], // left 1 column
-    [-1, 1], // right 1 left column & up 1 row
+    [-1, 1], // diagonal right 1 left column & up 1 row
   ];
 
   offsets.forEach(function (offset) {

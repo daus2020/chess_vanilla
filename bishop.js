@@ -1,123 +1,49 @@
 function validBishopMoves() {
-  console.log("Hello from bishop.js");
-  // Diagonal right up move
-  for (let i = 1; i < 8; i++) {
-    if (
-      parseInt(dragRow) + i <= 8 &&
-      parseInt(dragCol.charCodeAt(0)) + i <= 104
-    ) {
-      let newCol = String.fromCharCode(parseInt(dragCol.charCodeAt(0)) + i);
-      let newRow = parseInt(dragRow) + i; // could also be (parseInt(dragRow) + i).toString();
+  const opponentPiece = playerTurn === "white" ? "black" : "white";
 
-      squareRightUp = newCol + newRow; // String + Number -> String
+  // [column, row]
+  const offsets = [
+    [1, 1], // diagonal 1 right column & 1 up row
+    [1, -1], // diagonal 1 right column & down 1 row
+    [-1, -1], // diagonal 1 left column & down 1 row
+    [-1, 1], // diagonal right 1 left column & up 1 row
+  ];
 
-      const rightUp = document.querySelector(
-        `div[square-id = "${squareRightUp}"]`
-      );
+  const isInBoard = (row, col) => {
+    return (
+      row >= 1 &&
+      row <= 8 &&
+      col >= "a".charCodeAt(0) &&
+      col <= "h".charCodeAt(0)
+    );
+  };
 
-      const isRightUpEmpty = isEmpty(rightUp);
+  const calculateMoves = ([rowOffset, colOffset]) => {
+    let currentRow = parseInt(dragRow);
+    let currentCol = dragCol.charCodeAt(0);
 
-      const isRightUpOpponent = rightUp?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
+    while (true) {
+      currentRow += rowOffset;
+      currentCol += colOffset;
 
-      if (isRightUpEmpty) {
-        moves.push(squareRightUp);
+      if (!isInBoard(currentRow, currentCol)) break;
+
+      const squareId = String.fromCharCode(currentCol) + currentRow;
+      const square = document.querySelector(`div[square-id = "${squareId}"]`);
+
+      const isSquareEmpty = isEmpty(square);
+      const hasOpponent = square?.firstChild?.classList.contains(opponentPiece);
+
+      if (isSquareEmpty) {
+        moves.push(squareId);
       } else {
-        isRightUpOpponent && moves.push(squareRightUp);
+        if (hasOpponent) moves.push(squareId);
         break;
       }
     }
-  }
+  };
 
-  // Diagonal left up move
-  for (let i = 1; i < 8; i++) {
-    if (
-      parseInt(dragRow) + i <= 8 &&
-      parseInt(dragCol.charCodeAt(0)) - i >= 97
-    ) {
-      let newCol = String.fromCharCode(parseInt(dragCol.charCodeAt(0)) - i);
-      let newRow = parseInt(dragRow) + i;
-
-      squareLeftUp = newCol + newRow;
-
-      const leftUp = document.querySelector(
-        `div[square-id = "${squareLeftUp}"]`
-      );
-
-      const isLeftUpEmpty = isEmpty(leftUp);
-
-      const isLeftUpOpponent = leftUp?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
-
-      if (isLeftUpEmpty) {
-        moves.push(squareLeftUp);
-      } else {
-        isLeftUpOpponent && moves.push(squareLeftUp);
-        break;
-      }
-    }
-  }
-
-  // Diagonal right down move
-  for (let i = 1; i < 8; i++) {
-    if (
-      parseInt(dragRow) - i >= 1 &&
-      parseInt(dragCol.charCodeAt(0)) + i <= 104
-    ) {
-      let newCol = String.fromCharCode(parseInt(dragCol.charCodeAt(0)) + i);
-      let newRow = parseInt(dragRow) - i;
-
-      squareRightDown = newCol + newRow;
-
-      const rightDown = document.querySelector(
-        `div[square-id = "${squareRightDown}"]`
-      );
-
-      const isRightDownEmpty = isEmpty(rightDown);
-
-      const isRightDownOpponent = rightDown?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
-
-      if (isRightDownEmpty) {
-        moves.push(squareRightDown);
-      } else {
-        isRightDownOpponent && moves.push(squareRightDown);
-        break;
-      }
-    }
-  }
-  // Diagonal left down move
-  for (let i = 1; i < 8; i++) {
-    if (
-      parseInt(dragRow) - i >= 1 &&
-      parseInt(dragCol.charCodeAt(0)) - i >= 97
-    ) {
-      let newCol = String.fromCharCode(parseInt(dragCol.charCodeAt(0)) - i);
-      let newRow = parseInt(dragRow) - i;
-
-      squareLeftDown = newCol + newRow;
-
-      const leftDown = document.querySelector(
-        `div[square-id = "${squareLeftDown}"]`
-      );
-
-      const isLeftDownEmpty = isEmpty(leftDown);
-
-      const isLeftDownOpponent = leftDown?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
-
-      if (isLeftDownEmpty) {
-        moves.push(squareLeftDown);
-      } else {
-        isLeftDownOpponent && moves.push(squareLeftDown);
-        break;
-      }
-    }
-  }
-
-  console.log(moves);
+  offsets.forEach((direction) => {
+    calculateMoves(direction);
+  });
 }
