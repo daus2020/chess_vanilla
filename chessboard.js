@@ -121,9 +121,9 @@ function dragStart(e) {
   if (draggedPiece === "queen") {
     validQueenMoves();
   }
-  // if (draggedPiece === "king") {
-  //   validKingMoves();
-  // }
+  if (draggedPiece === "king") {
+    validKingMoves();
+  }
   console.log("moves: ", moves);
 }
 
