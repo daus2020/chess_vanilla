@@ -14,17 +14,12 @@ const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
 
-// let opponentPlayer = playerTurn === "white" ? "black" : "white";
-
-// console.log(coords);  //ok
-
 function createBoard() {
   startPieces.forEach((piece, i) => {
     const square = document.createElement("div");
     const rowNumber = +coords[i].charAt(1);
     square.classList.add("square");
     square.innerHTML = piece;
-    // square.firstChild?.setAttribute("draggable", true);
     square.setAttribute("square-id", coords[i]);
     const isRowOdd = (rowNumber + i) & 1;
 
@@ -127,8 +122,6 @@ function dragStart(e) {
   console.log("moves: ", moves);
 }
 
-// console.log(moves);
-
 function dragOver(e) {
   e.preventDefault();
 }
@@ -157,11 +150,11 @@ function dragDrop(e) {
     return;
   }
 
-  const opponentPlayer = playerTurn === "white" ? "black" : "white";
+  const opponentPiece = playerTurn === "white" ? "black" : "white";
 
   const taken =
     // e.target.classList.contains("piece") &&  ?// not necessary
-    e.target.classList.contains(opponentPlayer);
+    e.target.classList.contains(opponentPiece);
   console.log("is taken: ", taken);
 
   if (taken) {
@@ -200,11 +193,11 @@ function dragDrop(e) {
     if (enpasses.length === 2) {
       console.log("Exist 2 enpass class");
       // enpasses.forEach((el) =>
-      //   el.classList.contains(`.${opponentPlayer}`).classList.remove("enpass")
+      //   el.classList.contains(`.${opponentPiece}`).classList.remove("enpass")
       // );
     }
     for (const enpassDiv of enpasses) {
-      if (enpassDiv.classList.contains(opponentPlayer)) {
+      if (enpassDiv.classList.contains(opponentPiece)) {
         enpassDiv.classList.remove("enpass");
         break; // Stop after removing from the first matching div
       }
