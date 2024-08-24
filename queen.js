@@ -1,4 +1,9 @@
 function validQueenMoves() {
+  console.log("Valid queen moves");
+
+  const opponentPiece = playerTurn === "white" ? "black" : "white";
+
+  // [column, row]
   const offsets = [
     [0, 1], // up 1 row
     [1, 1], // diagonal 1 right column & 1 up row
@@ -10,32 +15,41 @@ function validQueenMoves() {
     [-1, 1], // right 1 left column & up 1 row
   ];
 
-  offsets.forEach(function (offset) {
-    let colOffset = String.fromCharCode(dragCol.charCodeAt(0) + offset[0]);
-    let rowOffset = parseInt(dragRow) + offset[1];
-    if (
-      colOffset >= "a" &&
-      colOffset <= "h" &&
-      rowOffset >= 1 &&
-      rowOffset <= 8
-    ) {
-      console.log(`Move to ${colOffset}${rowOffset}`);
-      const offsetId = colOffset + rowOffset;
-      const squareOffset = document.querySelector(
-        `div[square-id = "${offsetId}"]`
-      );
+  const isInBoard = (row, col) => {
+    return (
+      row >= 1 &&
+      row <= 8 &&
+      col >= "a".charCodeAt(0) &&
+      col <= "h".charCodeAt(0)
+    );
+  };
 
-      const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
+  const calculateMoves = ([rowOffset, colOffset]) => {
+    let currentRow = parseInt(dragRow);
+    let currentCol = dragCol.charCodeAt(0);
 
-      const hasOffsetOpponent = squareOffset?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
+    while (true) {
+      currentRow += rowOffset;
+      currentCol += colOffset;
 
-      if (isOffsetEmpty) {
-        moves.push(offsetId);
+      if (!isInBoard(currentRow, currentCol)) break;
+
+      const squareId = String.fromCharCode(currentCol) + currentRow;
+      const square = document.querySelector(`div[square-id = "${squareId}"]`);
+
+      const isSquareEmpty = isEmpty(square);
+      const hasOpponent = square?.firstChild?.classList.contains(opponentPiece);
+
+      if (isSquareEmpty) {
+        moves.push(squareId);
       } else {
-        hasOffsetOpponent && moves.push(offsetId);
+        if (hasOpponent) moves.push(squareId);
+        break;
       }
     }
+  };
+
+  offsets.forEach((direction) => {
+    calculateMoves(direction);
   });
 }
