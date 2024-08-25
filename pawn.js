@@ -130,5 +130,4 @@ function validPawnMoves() {
   // and its subsequent promotion, exchanging for a queen, rook, bishop or knight.
 
   console.log(moves);
-  return moves;
 }
