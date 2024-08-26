@@ -169,9 +169,13 @@ function dragDrop(e) {
 
   // e.target.classList.contains(playerTurn) &&
   //   console.log("move not allowed");
-
+  // Element.childElementCount read-only property returns the number of child elements of this element
   if (e.target.childElementCount === 0) {
     console.log("line 187");
+
+    if (draggedPiece === "rook" && draggedDiv.classList.contains("cast"))
+      draggedDiv.classList.remove("cast");
+
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
       // if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
@@ -187,6 +191,7 @@ function dragDrop(e) {
     let diagonalPawnMove =
       Math.abs(dragCol.charCodeAt(0) - dropCol.charCodeAt(0)) === 1;
     console.log(diagonalPawnMove);
+
     if (draggedPiece === "pawn" && diagonalPawnMove) {
       // if (draggedPiece === "pawn" && diagonalPawnMove === 1) {
       console.log("Pawn dragged");
