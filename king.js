@@ -17,12 +17,10 @@ function validKingMoves() {
   offsets.forEach(function (offset) {
     let colOffset = String.fromCharCode(dragCol.charCodeAt(0) + offset[0]);
     let rowOffset = parseInt(dragRow) + offset[1];
-    if (
-      colOffset >= "a" &&
-      colOffset <= "h" &&
-      rowOffset >= 1 &&
-      rowOffset <= 8
-    ) {
+
+    const offsetId = colOffset + rowOffset;
+
+    if (coords.includes(offsetId)) {
       console.log(`Move to ${colOffset}${rowOffset}`);
       const offsetId = colOffset + rowOffset;
       const squareOffset = document.querySelector(

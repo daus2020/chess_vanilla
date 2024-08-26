@@ -85,8 +85,8 @@ function dragStart(e) {
   console.log("drag id: ", dragId); // i.e. h2
   dragCol = dragId[0]; // could be from a -> h  string
   dragRow = dragId[1]; // could be from 1 -> 8  string
-  console.log("drag letter: ", dragCol); // h
-  console.log("drag row: ", dragRow); // 2
+  // console.log("drag letter: ", dragCol); // h
+  // console.log("drag row: ", dragRow); // 2
   draggedDiv = e.target;
   draggedPiece = draggedDiv.getAttribute("id");
   console.log("dragged div", e.target); // <div id="pawn" class="piece white" draggable="true">
@@ -175,6 +175,13 @@ function dragDrop(e) {
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
       // if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
+    }
+
+    if (draggedPiece === "pawn" && draggedDiv.classList.contains("noMoved"))
+      draggedDiv.classList.remove("noMoved");
+
+    if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
+      draggedDiv.classList.remove("noMoved");
     }
 
     let diagonalPawnMove =

@@ -1,4 +1,4 @@
-const pawn = '<div class="piece" id="pawn">♟</div>'; // Black Pawn
+const pawn = '<div class="piece noMoved" id="pawn">♟</div>'; // Black Pawn, added noMoved class to possible move no one but two spaces forwards
 const rook = '<div class="piece cast" id="rook">♜</div>'; // Black Rook, added cast class facing a possible subsequent castling
 const knight = '<div class="piece" id="knight">♞</div>'; // Black Knight
 const bishop = '<div class="piece" id="bishop">♝</div>'; // Black Bishop
