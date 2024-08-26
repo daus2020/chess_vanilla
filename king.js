@@ -1,7 +1,7 @@
 function validKingMoves() {
   console.log("Valid king moves");
 
-  const opponentPlayer = playerTurn === "white" ? "black" : "white";
+  const opponentPiece = playerTurn === "white" ? "black" : "white";
 
   const offsets = [
     [0, 1], // up 1 row
@@ -21,7 +21,7 @@ function validKingMoves() {
     const offsetId = colOffset + rowOffset;
 
     if (coords.includes(offsetId)) {
-      console.log(`Move to ${colOffset}${rowOffset}`);
+      // console.log(`Move to ${colOffset}${rowOffset}`);
       const offsetId = colOffset + rowOffset;
       const squareOffset = document.querySelector(
         `div[square-id = "${offsetId}"]`
@@ -29,9 +29,8 @@ function validKingMoves() {
 
       const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
-      const hasOffsetOpponent = squareOffset?.firstChild?.classList.contains(
-        playerTurn === "white" ? "black" : "white"
-      );
+      const hasOffsetOpponent =
+        squareOffset?.firstChild?.classList.contains(opponentPiece);
 
       if (isOffsetEmpty) {
         moves.push(offsetId);

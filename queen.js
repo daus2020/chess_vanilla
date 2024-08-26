@@ -23,7 +23,6 @@ function validQueenMoves() {
       currentRow += rowOffset;
       currentCol += colOffset;
 
-      // currentId = String.fromCharCode(currentCol) + currentRow;
       const offsetId = String.fromCharCode(currentCol) + currentRow;
 
       if (!coords.includes(offsetId)) {
@@ -34,14 +33,15 @@ function validQueenMoves() {
         `div[square-id = "${offsetId}"]`
       );
 
-      const isSquareEmpty = isEmpty(squareOffset);
+      const isOffsetEmpty = isEmpty(squareOffset);
+
       const hasOpponent =
         squareOffset.firstChild?.classList.contains(opponentPiece);
 
-      if (isSquareEmpty) {
+      if (isOffsetEmpty) {
         moves.push(offsetId);
       } else {
-        if (hasOpponent) moves.push(offsetId);
+        hasOpponent && moves.push(offsetId);
         break;
       }
     }
