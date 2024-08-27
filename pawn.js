@@ -41,8 +41,9 @@ function validPawnMoves() {
       if (
         isSquareEmpty &&
         colOffset === 0 &&
-        rowOffset === Math.abs(1) &&
-        !hasOpponent
+        rowOffset === Math.abs(1)
+        // &&
+        // !hasOpponent
       ) {
         moves.push(squareId);
         isPreviousSquareEmpty = true;

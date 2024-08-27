@@ -14,18 +14,31 @@ function validKingMoves() {
     [-1, 1], // diagonal right 1 left column & up 1 row
   ];
 
+  let colRookRight;
+  let colRookLeft;
+  let offsetId;
+
   offsets.forEach(function (offset) {
     let colOffset = String.fromCharCode(dragCol.charCodeAt(0) + offset[0]);
     let rowOffset = parseInt(dragRow) + offset[1];
 
     const offsetId = colOffset + rowOffset;
+    console.log(`offsetId: ${offsetId}`);
+
+    function offseterId(offsetColRow) {
+      return document.querySelector(`div[square-id="${offsetColRow}]`);
+    }
 
     if (coords.includes(offsetId)) {
-      // console.log(`Move to ${colOffset}${rowOffset}`);
       const offsetId = colOffset + rowOffset;
-      const squareOffset = document.querySelector(
-        `div[square-id = "${offsetId}"]`
-      );
+      console.log(`offsetId line 31: ${offsetId}`);
+      // console.log(`Move to ${colOffset}${rowOffset}`);
+      console.log(`offsetId line 31: ${offsetId}`);
+      const squareOffset = offseterId(offsetId);
+      console.log(squareOffset);
+      // const squareOffset = document.querySelector(
+      //   `div[square-id = "${offsetId}"]`
+      // );
 
       const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
@@ -37,6 +50,27 @@ function validKingMoves() {
       } else {
         hasOffsetOpponent && moves.push(offsetId);
       }
+
+      // Check if castling is possible
+      // RIGHT
+      // if (draggedDiv.classList.contains("cast") &&
+      // if (draggedPiece === "king" &&
+      //   moves.includes("e1") &&
+      //   moves.includes("h1") &&
+      //   isEmpty(document.querySelector("div[square-id = 'f1']")) &&
+      //   isEmpty(document.querySelector("div[square-id = 'g1']"))
+      // ) {
+      //   moves.push("e1g1");
+      // } else if (
+      //   playerTurn === "black" &&
+      //   draggedPiece === "king" &&
+      //   moves.includes("e8") &&
+      //   moves.includes("h8") &&
+      //   isEmpty(document.querySelector("div[square-id = 'f8']")) &&
+      //   isEmpty(document.querySelector("div[square-id = 'g8']"))
+      // ) {
+      //   moves.push("e8g8");
+      // }
     }
   });
 }

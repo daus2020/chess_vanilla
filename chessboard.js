@@ -11,6 +11,7 @@ const yAxis = xAxis.map((_, i) => 8 - i); // [ 8, 7, 6, 5, 4, 3, 2, 1]
 const coords = yAxis.flatMap((el) => xAxis.flatMap((letter) => letter + el));
 // console.log(coords); // Array(64) ['a8', 'b8', 'c8','d8', 'e8', 'f8','g8', 'h8', 'a7',... "h2','a1', 'b1', "c1',.., 'h1']
 
+// In chess always start white pieces
 let playerTurn = "white";
 playerDisplay.textContent = playerTurn;
 
@@ -65,7 +66,7 @@ function changePlayer() {
   toggleDraggable(pieces[playerTurn], true);
   playerDisplay.textContent = playerTurn;
 
-  console.log(`switch playerTurn to "${playerTurn}"`);
+  // console.log(`switch playerTurn to "${playerTurn}"`);
 }
 
 let dragId;
@@ -95,6 +96,7 @@ function dragStart(e) {
   console.log(playerTurn);
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
 
+  // If dragI = undefined then it is false, empty does not exit, therefore !dragId is truthy
   if (!dragId) {
     e.preventDefault(); // Stops the drag operation
     console.log("Drag stopped: square-id is null.");
