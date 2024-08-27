@@ -1,5 +1,5 @@
 function validKingMoves() {
-  console.log("Valid king moves");
+  console.log("Checking king moves in board");
 
   const opponentPiece = playerTurn === "white" ? "black" : "white";
 
@@ -23,18 +23,20 @@ function validKingMoves() {
     let rowOffset = parseInt(dragRow) + offset[1];
 
     const offsetId = colOffset + rowOffset;
-    console.log(`offsetId: ${offsetId}`);
+    // console.log(`offsetId: ${offsetId}`);
 
-    function offseterId(offsetColRow) {
-      return document.querySelector(`div[square-id="${offsetColRow}]`);
-    }
+    // function getDivOffset(colRow) {
+    //   return document.querySelector(`div[square-id="${colRow}"]`);
+    // }
 
     if (coords.includes(offsetId)) {
-      const offsetId = colOffset + rowOffset;
-      console.log(`offsetId line 31: ${offsetId}`);
+      // const offsetId = colOffset + rowOffset;
+      // console.log(`offsetId line 31: ${offsetId}`);
       // console.log(`Move to ${colOffset}${rowOffset}`);
-      console.log(`offsetId line 31: ${offsetId}`);
-      const squareOffset = offseterId(offsetId);
+      // console.log(`offsetId line 31: ${offsetId}`);
+
+      // Get entire div from offsetId, to get the info needed (classes, isEmpty etc...)
+      const squareOffset = getDivOffset(offsetId);
       console.log(squareOffset);
       // const squareOffset = document.querySelector(
       //   `div[square-id = "${offsetId}"]`

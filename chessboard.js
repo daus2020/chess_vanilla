@@ -77,6 +77,9 @@ let dragPlusOneRow;
 let dragPlusTwoRow;
 let moves = [];
 
+function getDivOffset(colRow) {
+  return document.querySelector(`div[square-id="${colRow}"]`);
+}
 function isEmpty(square) {
   return square.firstChild === null;
 }
