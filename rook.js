@@ -10,14 +10,14 @@ function validRookMoves() {
     [-1, 0], // left 1 column
   ];
 
-  const isInBoard = (row, col) => {
-    return (
-      row >= 1 &&
-      row <= 8 &&
-      col >= "a".charCodeAt(0) &&
-      col <= "h".charCodeAt(0)
-    );
-  };
+  // const isInBoard = (row, col) => {
+  //   return (
+  //     row >= 1 &&
+  //     row <= 8 &&
+  //     col >= "a".charCodeAt(0) &&
+  //     col <= "h".charCodeAt(0)
+  //   );
+  // };
 
   const calculateMoves = ([rowOffset, colOffset]) => {
     let currentRow = parseInt(dragRow);
@@ -27,18 +27,24 @@ function validRookMoves() {
       currentRow += rowOffset;
       currentCol += colOffset;
 
-      if (!isInBoard(currentRow, currentCol)) break;
+      const offsetId = String.fromCharCode(currentCol) + currentRow;
+      console.log(offsetId);
 
-      const squareId = String.fromCharCode(currentCol) + currentRow;
-      const square = document.querySelector(`div[square-id = "${squareId}"]`);
+      if (!coords.includes(offsetId)) {
+        break;
+      }
 
-      const isSquareEmpty = isEmpty(square);
-      const hasOpponent = square?.firstChild?.classList.contains(opponentPiece);
+      const squareOffset = getDivOffset(offsetId);
+      // const square = document.querySelector(`div[square-id = "${squareId}"]`);
+
+      const isSquareEmpty = isEmpty(squareOffset);
+      const hasOpponent =
+        squareOffset?.firstChild?.classList.contains(opponentPiece);
 
       if (isSquareEmpty) {
-        moves.push(squareId);
+        moves.push(offsetId);
       } else {
-        if (hasOpponent) moves.push(squareId);
+        if (hasOpponent) moves.push(offsetId);
         break;
       }
     }

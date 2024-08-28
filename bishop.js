@@ -1,6 +1,4 @@
 function validBishopMoves() {
-  const opponentPiece = playerTurn === "white" ? "black" : "white";
-
   // [column, row]
   const offsets = [
     [1, 1], // diagonal 1 right column & 1 up row
@@ -9,35 +7,34 @@ function validBishopMoves() {
     [-1, 1], // diagonal right 1 left column & up 1 row
   ];
 
-  const isInBoard = (row, col) => {
-    return (
-      row >= 1 &&
-      row <= 8 &&
-      col >= "a".charCodeAt(0) &&
-      col <= "h".charCodeAt(0)
-    );
-  };
+  const opponentPiece = playerTurn === "white" ? "black" : "white";
 
   const calculateMoves = ([rowOffset, colOffset]) => {
-    let currentRow = parseInt(dragRow);
     let currentCol = dragCol.charCodeAt(0);
+    let currentRow = parseInt(dragRow);
 
     while (true) {
-      currentRow += rowOffset;
       currentCol += colOffset;
+      currentRow += rowOffset;
 
-      if (!isInBoard(currentRow, currentCol)) break;
+      const offsetId = String.fromCharCode(currentCol) + currentRow;
+      console.log(offsetId);
 
-      const squareId = String.fromCharCode(currentCol) + currentRow;
-      const square = document.querySelector(`div[square-id = "${squareId}"]`);
+      if (!coords.includes(offsetId)) {
+        break;
+      }
 
-      const isSquareEmpty = isEmpty(square);
-      const hasOpponent = square?.firstChild?.classList.contains(opponentPiece);
+      const squareOffset = getDivOffset(offsetId);
+      // const square = document.querySelector(`div[square-id = "${squareId}"]`);
+
+      const isSquareEmpty = isEmpty(squareOffset);
+      const hasOpponent =
+        squareOffset?.firstChild?.classList.contains(opponentPiece);
 
       if (isSquareEmpty) {
-        moves.push(squareId);
+        moves.push(offsetId);
       } else {
-        if (hasOpponent) moves.push(squareId);
+        if (hasOpponent) moves.push(offsetId);
         break;
       }
     }

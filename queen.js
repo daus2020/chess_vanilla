@@ -29,11 +29,10 @@ function validQueenMoves() {
         break;
       }
 
-      const squareOffset = document.querySelector(
-        `div[square-id = "${offsetId}"]`
-      );
+      const squareOffset = getDivOffset(offsetId); // document.querySelector(
+      //   `div[square-id = "${offsetId}"]`
 
-      const isOffsetEmpty = isEmpty(squareOffset);
+      const isOffsetEmpty = isEmpty(squareOffset); // if square.firstChild === null then it is empty square (true)
 
       const hasOpponent =
         squareOffset.firstChild?.classList.contains(opponentPiece);
