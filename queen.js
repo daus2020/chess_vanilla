@@ -15,9 +15,9 @@ function validQueenMoves() {
     [-1, 1], // diagonal right 1 left column & up 1 row
   ];
 
-  const calculateMoves = ([rowOffset, colOffset]) => {
-    let currentRow = parseInt(dragRow);
+  const calculateMoves = ([colOffset, rowOffset]) => {
     let currentCol = dragCol.charCodeAt(0);
+    let currentRow = parseInt(dragRow);
 
     while (true) {
       currentRow += rowOffset;

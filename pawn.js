@@ -7,7 +7,7 @@ function validPawnMoves() {
   // [column, row]
   const offsets = [
     [0, 1], // up 1 row
-    [1, 1], // diagonal 1 right column & up 1 row
+    [1, 1], // diagonal 1 right column & up 1 row obs.: white is in bottom, king is on the right of queen
     [-1, 1], // diagonal 1 left column & up 1 row
   ];
 
@@ -23,16 +23,18 @@ function validPawnMoves() {
     console.log(offsetId);
 
     if (coords.includes(offsetId)) {
-      console.log(draggedDiv);
+      let squareOffset = getDivOffset(offsetId);
+      // console.log(draggedDiv);
       // let isOneSquareEmpty = false; // maybe not necessary put false just let ...
-      let squareId = String.fromCharCode(currentCol) + currentRow;
-      let square = document.querySelector(`div[square-id = "${squareId}"]`);
-      console.log(square); // <div class="square light" square-id="h3">
-      console.log(squareId);
-      let isSquareEmpty = isEmpty(square);
-      console.log(`Is `, squareId, ` empty? `, isSquareEmpty); // undefined -> false
+      // let squareId = String.fromCharCode(currentCol) + currentRow;
+      // let square = document.querySelector(`div[square-id = "${squareId}"]`);
+      // console.log(square); // <div class="square light" square-id="h3">
+      // console.log(squareId);
+      let isSquareEmpty = isEmpty(squareOffset);
+      console.log(`Is `, offsetId, ` empty? `, isSquareEmpty); // undefined -> false
 
-      let hasOpponent = square.firstChild?.classList.contains(opponentPlayer); // if undefined, it means it is empty
+      let hasOpponent =
+        squareOffset.firstChild?.classList.contains(opponentPlayer); // if undefined, it means it is empty
       console.log(`Has opponent? If is undefined -> falsy `, hasOpponent); // if undefined, it means it is empty, i.e. falsy
       let hasPawnUnmoved = draggedDiv.classList.contains("noMoved");
       console.log(`Has pawn unmoved `, hasPawnUnmoved);
@@ -45,36 +47,15 @@ function validPawnMoves() {
         // &&
         // !hasOpponent
       ) {
-        moves.push(squareId);
+        moves.push(offsetId);
+        // moves.push(squareId);
         isPreviousSquareEmpty = true;
       }
       console.log(moves);
-      console.log(
-        `column offset, if it 0 -> same column, no diagonal move`,
-        colOffset
-      );
-      // const squareId = String.fromCharCode(currentCol) + currentRow;
-      // const square = document.querySelector(`div[square-id = "${squareId}"]`);
-      // console.log(square); // <div class="square light" square-id="h3">
-      // console.log(squareId);
-      // const isSquareEmpty = isEmpty(square);
-      // console.log(`Is `, squareId, ` empty? `, isSquareEmpty); // true
-
-      // const hasOpponent = square?.firstChild?.classList.contains(opponentPiece); // if undefined, it means it is empty
-      // console.log(`If is undefined -> It is empty `, hasOpponent); // if undefined, it means it is empty, i.e. falsy
-      // const hasPawnUnmoved = draggedDiv.classList.contains("noMoved");
-      // console.log(`Has pawn unmoved `, hasPawnUnmoved);
-
-      console.log(`Is empty? `, isSquareEmpty);
-      console.log(`row offset * opponentPiece: `, rowOffset * opponentPiece);
-      console.log(`col offset * opponentPiece: `, colOffset * opponentPiece);
-      console.log(`Is previous empty? `, isPreviousSquareEmpty);
-      console.log(`pawn has unmoved? `, hasPawnUnmoved);
-      console.log(`Is `, square, ` has opponent? `, hasOpponent); // undefined -> falsy (empty square)
 
       // Diagonal move forward with an opponent
       if (hasOpponent && colOffset != 0) {
-        moves.push(squareId);
+        moves.push(offsetId);
         console.log(moves);
       }
 
@@ -97,7 +78,7 @@ function validPawnMoves() {
 
         // Diagonal right forward empty but with pawn besides right with enpass class
         if (isSquareEmpty && enpassRight) {
-          moves.push(squareId);
+          moves.push(offsetId);
         }
       }
 
@@ -134,21 +115,27 @@ function validPawnMoves() {
         // Diagonal left forward empty but with pawn besides left with enpass class
         // enpassLeft && moves.push(squareLeftId)
         if (isSquareEmpty && enpassLeft) {
-          moves.push(squareId);
+          moves.push(offsetId);
         }
       }
       currentRow += rowOffset * opponentPiece;
       console.log(currentRow);
       offsetId = String.fromCharCode(currentCol) + currentRow;
       console.log(`offsetId 2`, offsetId);
-      squareId = String.fromCharCode(currentCol) + currentRow;
-      square = document.querySelector(`div[square-id = "${squareId}"]`);
-      console.log(square); // <div class="square light" square-id="h3">
-      console.log(squareId);
-      isSquareEmpty = isEmpty(square);
-      console.log(`Is `, squareId, ` empty? `, isSquareEmpty); // true
+      offsetId = String.fromCharCode(currentCol) + currentRow;
+      squareOffset = getDivOffset(offsetId);
+      // squareOffset = document.querySelector(`div[square-id = "${offsetId}"]`);
+      console.log(squareOffset); // <div class="square light" square-id="h3">
+      console.log(offsetId);
+      // offsetId = String.fromCharCode(currentCol) + currentRow;
+      // squareOffset = document.querySelector(`div[square-id = "${offsetId}"]`);
+      // console.log(squareOffset); // <div class="square light" square-id="h3">
+      // console.log(offsetId);
+      isSquareEmpty = isEmpty(squareOffset);
+      console.log(`Is `, offsetId, ` empty? `, isSquareEmpty); // true
 
-      hasOpponent = square?.firstChild?.classList.contains(opponentPlayer); // if undefined, it means it is empty
+      hasOpponent =
+        squareOffset?.firstChild?.classList.contains(opponentPlayer); // if undefined, it means it is empty
       console.log(hasOpponent);
 
       // Two steps forward
@@ -158,7 +145,7 @@ function validPawnMoves() {
         isPreviousSquareEmpty &&
         hasPawnUnmoved
       ) {
-        moves.push(squareId);
+        moves.push(offsetId);
         console.log(`line 162 moves: `, moves);
       }
     }
