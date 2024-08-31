@@ -89,8 +89,7 @@ function dragStart(e) {
   console.log("drag id: ", dragId); // i.e. h2
   dragCol = dragId[0]; // could be from a -> h  string
   dragRow = dragId[1]; // could be from 1 -> 8  string
-  // console.log("drag letter: ", dragCol); // h
-  // console.log("drag row: ", dragRow); // 2
+
   draggedDiv = e.target;
   draggedPiece = draggedDiv.getAttribute("id");
   console.log("dragged div", e.target); // <div id="pawn" class="piece white" draggable="true">
@@ -103,7 +102,7 @@ function dragStart(e) {
   if (!dragId) {
     e.preventDefault(); // Stops the drag operation
     console.log("Drag stopped: square-id is null.");
-    return; // Exit the function early
+    return; // Early exit
   }
 
   if (draggedPiece === "pawn") {
@@ -157,13 +156,10 @@ function dragDrop(e) {
 
   const opponentPiece = playerTurn === "white" ? "black" : "white";
 
-  const taken =
-    // e.target.classList.contains("piece") &&  ?// not necessary
-    e.target.classList.contains(opponentPiece);
+  const taken = e.target.classList.contains(opponentPiece);
   console.log("is taken: ", taken);
 
   if (taken) {
-    // if (taken && valid) {
     e.target.parentNode.append(draggedDiv);
     e.target.remove();
 
@@ -172,9 +168,6 @@ function dragDrop(e) {
     return;
   }
 
-  // e.target.classList.contains(playerTurn) &&
-  //   console.log("move not allowed");
-  // Element.childElementCount read-only property returns the number of child elements of this element
   if (e.target.childElementCount === 0) {
     console.log("line 187");
 
@@ -182,23 +175,17 @@ function dragDrop(e) {
       draggedDiv.classList.remove("cast");
 
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
-      // if (draggedPiece === "pawn" && Math.abs(dropId[1] - dragId[1]) === 2) {
       draggedDiv.classList.add("enpass");
     }
 
-    if (draggedPiece === "pawn" && draggedDiv.classList.contains("noMoved"))
-      draggedDiv.classList.remove("noMoved");
-
-    if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
-      draggedDiv.classList.remove("noMoved");
-    }
+    if (draggedPiece === "pawn" && draggedDiv.classList.contains("static"))
+      draggedDiv.classList.remove("static");
 
     let diagonalPawnMove =
       Math.abs(dragCol.charCodeAt(0) - dropCol.charCodeAt(0)) === 1;
     console.log(diagonalPawnMove);
 
     if (draggedPiece === "pawn" && diagonalPawnMove) {
-      // if (draggedPiece === "pawn" && diagonalPawnMove === 1) {
       console.log("Pawn dragged");
       console.log("diagonal pawn moved");
       document.querySelector(".enpass").remove();
