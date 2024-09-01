@@ -1,7 +1,6 @@
 function validPawnMoves() {
   // remember that pawn always have to move forward and vertically, never go backwards nor diagonal, except en passant case (besides pawn opposite with "enpass" class taken)
-
-  const opponentPiece = playerTurn === "white" ? 1 : -1;
+  const directionSign = playerTurn === "white" ? 1 : -1; // if it white turn -> is positive, otherwise is negative
   const opponentPlayer = playerTurn === "white" ? "black" : "white";
 
   // [column, row]
@@ -15,8 +14,8 @@ function validPawnMoves() {
     let currentCol = dragCol.charCodeAt(0);
     let currentRow = parseInt(dragRow);
 
-    currentCol += colOffset * opponentPiece;
-    currentRow += rowOffset * opponentPiece;
+    currentCol += colOffset * directionSign;
+    currentRow += rowOffset * directionSign;
 
     let offsetId = String.fromCharCode(currentCol) + currentRow;
     console.log(offsetId);
@@ -59,7 +58,7 @@ function validPawnMoves() {
       console.log(`Has pawn unmoved `, isStatic);
 
       if (moves.includes(offsetId) && colOffset === 0 && isStatic) {
-        currentRow += rowOffset * opponentPiece;
+        currentRow += rowOffset * directionSign;
         offsetId = String.fromCharCode(currentCol) + currentRow; // here offsetId is new
         squareOffset = getDivOffset(offsetId);
 

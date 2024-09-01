@@ -10,15 +10,6 @@ function validRookMoves() {
     [-1, 0], // left 1 column
   ];
 
-  // const isInBoard = (row, col) => {
-  //   return (
-  //     row >= 1 &&
-  //     row <= 8 &&
-  //     col >= "a".charCodeAt(0) &&
-  //     col <= "h".charCodeAt(0)
-  //   );
-  // };
-
   const calculateMoves = ([rowOffset, colOffset]) => {
     let currentRow = parseInt(dragRow);
     let currentCol = dragCol.charCodeAt(0);
@@ -35,7 +26,7 @@ function validRookMoves() {
       }
 
       const squareOffset = getDivOffset(offsetId);
-      // const square = document.querySelector(`div[square-id = "${squareId}"]`);
+      // === document.querySelector(`div[square-id = "${offsetId}"]`);
 
       const isSquareEmpty = isEmpty(squareOffset);
       const hasOpponent =
