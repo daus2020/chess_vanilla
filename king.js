@@ -14,33 +14,17 @@ function validKingMoves() {
     [-1, 1], // diagonal right 1 left column & up 1 row
   ];
 
-  let colRookRight;
-  let colRookLeft;
-  let offsetId;
+  offsets.forEach(function ([colOffset, rowOffset]) {
+    let currentCol = dragCol.charCodeAt(0) + colOffset;
+    // let currentCol = String.fromCharCode(dragCol.charCodeAt(0) + colOffset);
+    let currentRow = parseInt(dragRow) + rowOffset;
+    // let currentRow = parseInt(dragRow) + rowOffset;
 
-  offsets.forEach(function (offset) {
-    let colOffset = String.fromCharCode(dragCol.charCodeAt(0) + offset[0]);
-    let rowOffset = parseInt(dragRow) + offset[1];
-
-    const offsetId = colOffset + rowOffset;
-    // console.log(`offsetId: ${offsetId}`);
-
-    // function getDivOffset(colRow) {
-    //   return document.querySelector(`div[square-id="${colRow}"]`);
-    // }
+    let offsetId = String.fromCharCode(currentCol) + currentRow;
 
     if (coords.includes(offsetId)) {
-      // const offsetId = colOffset + rowOffset;
-      // console.log(`offsetId line 31: ${offsetId}`);
-      // console.log(`Move to ${colOffset}${rowOffset}`);
-      // console.log(`offsetId line 31: ${offsetId}`);
-
-      // Get entire div from offsetId, to get the info needed (classes, isEmpty etc...)
       const squareOffset = getDivOffset(offsetId);
       console.log(squareOffset);
-      // const squareOffset = document.querySelector(
-      //   `div[square-id = "${offsetId}"]`
-      // );
 
       const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
@@ -52,6 +36,53 @@ function validKingMoves() {
       } else {
         hasOffsetOpponent && moves.push(offsetId);
       }
+
+      const castleKing = draggedDiv.classList?.contains("cast");
+      console.log(`castleKing: ${castleKing}`);
+
+      // castle right
+      if (castleKing && colOffset === 1 && rowOffset === 0 && isOffsetEmpty) {
+        // currentCol += colOffset;
+        // offsetId = String.fromCharCode(currentCol) + currentRow;
+        // const twoColOffset = getDivOffset(offsetId);
+        // const isTwoColEmpty = isEmpty(twoColOffset);
+        // currentCol += colOffset;
+        // offsetId = String.fromCharCode(currentCol) + currentRow;
+        const gColOffset = getDivOffset(String.fromCharCode(103) + currentRow);
+        const isGcolEmpty = isEmpty(gColOffset);
+        const hColOffset = getDivOffset(String.fromCharCode(104) + currentRow);
+        const hColOffsetCast =
+          hColOffset.firstChild?.classList.contains("cast");
+        isGcolEmpty &&
+          hColOffsetCast &&
+          moves.push(String.fromCharCode(103) + currentRow);
+      }
+
+      // while (true) {
+      //   currentCol += colOffset;
+
+      //   const offsetId = String.fromCharCode(currentCol) + currentRow;
+
+      //   if (!coords.includes(offsetId)) {
+      //     break;
+      //   }
+
+      //   const squareOffset = getDivOffset(offsetId); // === document.querySelector(
+      //   //   `div[square-id = "${offsetId}"]`
+
+      //   const isOffsetEmpty = isEmpty(squareOffset); // if square.firstChild === null then it is empty square (true)
+
+      //   // has rook with castle class
+      //   // const hasOpponent =
+      //   //   squareOffset.firstChild?.classList.contains(opponentPiece);
+
+      //   if (isOffsetEmpty) {
+      //     moves.push(offsetId);
+      //   } else {
+      //     hasOpponent && moves.push(offsetId);
+      //     break;
+      //   }
+      // }
 
       // Check if castling is possible
       // RIGHT

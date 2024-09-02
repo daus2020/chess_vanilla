@@ -171,7 +171,10 @@ function dragDrop(e) {
   if (e.target.childElementCount === 0) {
     console.log("line 187");
 
-    if (draggedPiece === "rook" && draggedDiv.classList.contains("cast"))
+    if (
+      draggedPiece === "rook" ||
+      (draggedPiece === "king" && draggedDiv.classList.contains("cast"))
+    )
       draggedDiv.classList.remove("cast");
 
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
