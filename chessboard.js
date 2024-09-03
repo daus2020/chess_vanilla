@@ -173,11 +173,8 @@ function dragDrop(e) {
       draggedPiece === "king" &&
       dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === 2
     ) {
-      console.log(draggedPiece);
       const rookDiv = getDivOffset("h" + dropRow);
-      console.log(rookDiv);
       const rookCast = rookDiv.firstChild;
-      console.log(rookCast);
       const rookTargetDiv = getDivOffset("f" + dropRow);
       rookTargetDiv.appendChild(rookCast);
     }
@@ -186,11 +183,8 @@ function dragDrop(e) {
       draggedPiece === "king" &&
       dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === -2
     ) {
-      console.log(draggedPiece);
       const rookDiv = getDivOffset("a" + dropRow);
-      console.log(rookDiv);
       const rookCast = rookDiv.firstChild;
-      console.log(rookCast);
       const rookTargetDiv = getDivOffset("d" + dropRow);
       rookTargetDiv.appendChild(rookCast);
     }
