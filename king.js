@@ -53,9 +53,24 @@ function validKingMoves() {
         const hColOffset = getDivOffset(String.fromCharCode(104) + currentRow);
         const hColOffsetCast =
           hColOffset.firstChild?.classList.contains("cast");
+
         isGcolEmpty &&
           hColOffsetCast &&
           moves.push(String.fromCharCode(103) + currentRow);
+      }
+
+      // castle left
+      if (castleKing && colOffset === -1 && rowOffset === 0 && isOffsetEmpty) {
+        const cColOffset = getDivOffset(String.fromCharCode(99) + currentRow);
+        const isCcolEmpty = isEmpty(cColOffset);
+        const bColOffset = getDivOffset(String.fromCharCode(98) + currentRow);
+        const isBcolEmpty = isEmpty(bColOffset);
+        const aColOffset = getDivOffset(String.fromCharCode(97) + currentRow);
+        const aColOffsetCast =
+          aColOffset.firstChild?.classList.contains("cast");
+
+        isCcolEmpty && isBcolEmpty;
+        aColOffsetCast && moves.push(String.fromCharCode(99) + currentRow);
       }
 
       // while (true) {

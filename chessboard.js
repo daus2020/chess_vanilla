@@ -144,7 +144,7 @@ function dragDrop(e) {
   let dropCol = dropId[0];
   let dropRow = dropId[1];
 
-  console.log(dropId);
+  // console.log(dropId);
 
   console.log("drop id: ", dropId);
 
@@ -169,11 +169,36 @@ function dragDrop(e) {
   }
 
   if (e.target.childElementCount === 0) {
-    console.log("line 187");
+    if (
+      draggedPiece === "king" &&
+      dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === 2
+    ) {
+      console.log(draggedPiece);
+      const rookDiv = getDivOffset("h" + dropRow);
+      console.log(rookDiv);
+      const rookCast = rookDiv.firstChild;
+      console.log(rookCast);
+      const rookTargetDiv = getDivOffset("f" + dropRow);
+      rookTargetDiv.appendChild(rookCast);
+    }
 
     if (
-      draggedPiece === "rook" ||
-      (draggedPiece === "king" && draggedDiv.classList.contains("cast"))
+      draggedPiece === "king" &&
+      dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === -2
+    ) {
+      console.log(draggedPiece);
+      const rookDiv = getDivOffset("a" + dropRow);
+      console.log(rookDiv);
+      const rookCast = rookDiv.firstChild;
+      console.log(rookCast);
+      const rookTargetDiv = getDivOffset("d" + dropRow);
+      rookTargetDiv.appendChild(rookCast);
+    }
+
+    if (
+      (draggedPiece === "rook" || draggedPiece === "king") &&
+      draggedDiv.classList.contains("cast")
+      // (draggedPiece === "king" && draggedDiv.classList.contains("cast"))
     )
       draggedDiv.classList.remove("cast");
 
