@@ -169,23 +169,19 @@ function dragDrop(e) {
   }
 
   if (e.target.childElementCount === 0) {
+    // castling move who involves king and rook
     if (
       draggedPiece === "king" &&
-      dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === 2
+      Math.abs(dropCol.charCodeAt(0) - dragCol.charCodeAt(0)) === 2
     ) {
-      const rookDiv = getDivOffset("h" + dropRow);
+      // if king move two spaces to the right then is short castling, rook moves from h to f, otherwise is long castling (left) where rook moves from a to d
+      const [rookCol, rookColCastled] =
+        dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === 2
+          ? ["h", "f"]
+          : ["a", "d"];
+      const rookDiv = getDivOffset(rookCol + dropRow);
       const rookCast = rookDiv.firstChild;
-      const rookTargetDiv = getDivOffset("f" + dropRow);
-      rookTargetDiv.appendChild(rookCast);
-    }
-
-    if (
-      draggedPiece === "king" &&
-      dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === -2
-    ) {
-      const rookDiv = getDivOffset("a" + dropRow);
-      const rookCast = rookDiv.firstChild;
-      const rookTargetDiv = getDivOffset("d" + dropRow);
+      const rookTargetDiv = getDivOffset(rookColCastled + dropRow);
       rookTargetDiv.appendChild(rookCast);
     }
 
