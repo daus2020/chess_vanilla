@@ -26,6 +26,7 @@ function validKingMoves() {
     if (coords.includes(offsetId)) {
       const squareOffset = getDivOffset(offsetId);
       console.log(squareOffset);
+      console.log(opponentPiece);
 
       const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
@@ -71,6 +72,9 @@ function validKingMoves() {
         const aColOffset = getDivOffset(String.fromCharCode(97) + currentRow);
         const aColOffsetCast =
           aColOffset.firstChild?.classList.contains("cast");
+        console.log(isCcolEmpty);
+        console.log(isBcolEmpty);
+        console.log(aColOffsetCast);
 
         isCcolEmpty &&
           isBcolEmpty &&
