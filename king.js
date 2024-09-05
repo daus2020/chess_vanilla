@@ -2,6 +2,7 @@ function validKingMoves() {
   console.log("Checking king moves in board");
 
   const opponentPiece = playerTurn === "white" ? "black" : "white";
+  console.log(opponentPiece);
 
   const offsets = [
     [0, 1], // up 1 row
@@ -78,20 +79,27 @@ function validKingMoves() {
       }
 
       // just for testing purposes
-      let kingMoves = ["a1", "a2", "a3", "a4", "a5", "a6"];
-      let opp1moves = ["d6", "f5", "c5", "d4"];
-      let opp2moves = ["a2", "b3", "c5", "a4", "d4"];
-      let opp3moves = ["f4", "g6", "h6", "a5", "b6", "a1"];
+      let kingMoves = ["a1", "a2", "a3", "a4", "a5", "a6"]; // current 'moves' array
 
-      // All opponent moves including duplicates ones
-      let combined = [...opp1moves, ...opp2moves, ...opp3moves];
-      console.log(combined);
-      // Removing duplicates
-      let setCombined = [...new Set(combined)];
-      console.log(setCombined);
-      // Finding king moves that are not in opponent moves list  (not included in combined)
-      const result = kingMoves.filter((element) => !combined.includes(element));
-      console.log(result);
+      // let forEach all opposite pieces moves, except for pawns vertical moves doesn't matter only diagonal pawn moves matter
+      const opponentPiece = playerTurn === "white" ? "black" : "white";
+      console.log(pieces.white);
+      console.log(pieces.black);
+
+      pieces[opponentPiece].forEach((oppPiece) => console.log(oppPiece));
+      // let opp1moves = ["d6", "f5", "c5", "d4"];
+      // let opp2moves = ["a2", "b3", "c5", "a4", "d4"];
+      // let opp3moves = ["f4", "g6", "h6", "a5", "b6", "a1"];
+
+      // // All opponent moves including duplicates ones
+      // let combined = [...opp1moves, ...opp2moves, ...opp3moves];
+      // console.log(combined);
+      // // Removing duplicates
+      // let setCombined = [...new Set(combined)];
+      // console.log(setCombined);
+      // // Finding king moves that are not in opponent moves list  (not included in combined)
+      // const result = kingMoves.filter((element) => !combined.includes(element));
+      // console.log(result);
     }
   });
 }
