@@ -24,7 +24,7 @@ function validPawnMoves() {
       let squareOffset = getDivOffset(offsetId);
 
       let isSquareEmpty = isEmpty(squareOffset);
-      console.log(`Is `, offsetId, ` empty? `, isSquareEmpty); // undefined -> false
+      console.log(`Is `, offsetId, ` empty? `, isSquareEmpty); // undefined -> false ->
 
       let hasOpponent =
         squareOffset.firstChild?.classList.contains(opponentPlayer); // if undefined, it means it is empty

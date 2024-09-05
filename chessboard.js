@@ -56,6 +56,12 @@ const pieces = {
   white: document.querySelectorAll(".white"),
   black: document.querySelectorAll(".black"),
 };
+
+const whiteCount = pieces.white.length;
+console.log(whiteCount);
+const blackCount = pieces.black.length;
+console.log(blackCount);
+
 function toggleDraggable(pieces, isDraggable) {
   pieces.forEach((el) => el.setAttribute("draggable", isDraggable));
 }
