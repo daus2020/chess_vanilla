@@ -32,6 +32,7 @@ function validKingMoves() {
 
       const hasOffsetOpponent =
         squareOffset?.firstChild?.classList.contains(opponentPiece);
+      console.log(hasOffsetOpponent);
 
       if (isOffsetEmpty) {
         moves.push(offsetId);
@@ -44,12 +45,6 @@ function validKingMoves() {
 
       // castling right (short)
       if (castleKing && colOffset === 1 && rowOffset === 0 && isOffsetEmpty) {
-        // currentCol += colOffset;
-        // offsetId = String.fromCharCode(currentCol) + currentRow;
-        // const twoColOffset = getDivOffset(offsetId);
-        // const isTwoColEmpty = isEmpty(twoColOffset);
-        // currentCol += colOffset;
-        // offsetId = String.fromCharCode(currentCol) + currentRow;
         const gColOffset = getDivOffset(String.fromCharCode(103) + currentRow);
         const isGcolEmpty = isEmpty(gColOffset);
         console.log(`is g col empty? ${isGcolEmpty}`);

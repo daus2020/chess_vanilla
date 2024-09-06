@@ -187,16 +187,50 @@ function dragDrop(e) {
           : ["a", "d"];
       const rookDiv = getDivOffset(rookCol + dropRow);
       const rookCast = rookDiv.firstChild;
-      const rookTargetDiv = getDivOffset(rookColCastled + dropRow);
+      const rookTargetDiv = getDivOffset("f" + dropRow);
       rookTargetDiv.appendChild(rookCast);
+      rookTargetDiv.firstChild.classList.remove("cast");
     }
 
     if (
-      (draggedPiece === "rook" || draggedPiece === "king") &&
+      draggedPiece === "king" &&
+      dropCol.charCodeAt(0) - dragCol.charCodeAt(0) === -2
+    ) {
+      const rookDiv = getDivOffset("a" + dropRow);
+      const rookCast = rookDiv.firstChild;
+      const rookTargetDiv = getDivOffset("d" + dropRow);
+      rookTargetDiv.appendChild(rookCast);
+      rookTargetDiv.firstChild.classList.remove("cast");
+    }
+
+    if (
+      draggedPiece === "rook" &&
       draggedDiv.classList.contains("cast")
       // (draggedPiece === "king" && draggedDiv.classList.contains("cast"))
-    )
+    ) {
       draggedDiv.classList.remove("cast");
+    }
+
+    if (
+      draggedPiece === "king" &&
+      draggedDiv.classList.contains("cast")
+      // (draggedPiece === "king" && draggedDiv.classList.contains("cast"))
+    ) {
+      draggedDiv.classList.remove("cast");
+      // a col have cast -> remove cast
+      const castlingLeftDiv = getDivOffset("a" + dragRow);
+      console.log(castlingLeftDiv);
+      console.log(castlingLeftDiv.firstChild?.classList.contains("cast"));
+      castlingLeftDiv.firstChild?.classList.contains("cast") &&
+        castlingLeftDiv.firstChild.classList.remove("cast");
+      const castlingRightDiv = getDivOffset("h" + dragRow);
+      console.log(castlingRightDiv);
+      console.log(castlingRightDiv.firstChild?.classList.contains("cast"));
+      castlingRightDiv.firstChild?.classList.contains("cast") &&
+        castlingRightDiv.firstChild.classList.remove("cast");
+    }
+
+    // draggedPiece === "king";
 
     if (draggedPiece === "pawn" && Math.abs(dropRow - dragRow) === 2) {
       draggedDiv.classList.add("enpass");
