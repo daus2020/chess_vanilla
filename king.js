@@ -2,7 +2,6 @@ function validKingMoves() {
   console.log("Checking king moves in board");
 
   const opponentPiece = playerTurn === "white" ? "black" : "white";
-  console.log(opponentPiece);
 
   const offsets = [
     [0, 1], // up 1 row
@@ -26,7 +25,6 @@ function validKingMoves() {
     if (coords.includes(offsetId)) {
       const squareOffset = getDivOffset(offsetId);
       console.log(squareOffset);
-      console.log(opponentPiece);
 
       const isOffsetEmpty = isEmpty(squareOffset); // remember the function is asking if squareOffset === null, if so then is empty therefore true. Otherwise it is false.
 
@@ -43,11 +41,10 @@ function validKingMoves() {
       const castleKing = draggedDiv.classList?.contains("cast");
       console.log(`castleKing: ${castleKing}`);
 
-      // castling right (short)
+      // castle right
       if (castleKing && colOffset === 1 && rowOffset === 0 && isOffsetEmpty) {
         const gColOffset = getDivOffset(String.fromCharCode(103) + currentRow);
         const isGcolEmpty = isEmpty(gColOffset);
-        console.log(`is g col empty? ${isGcolEmpty}`);
         const hColOffset = getDivOffset(String.fromCharCode(104) + currentRow);
         const hColOffsetCast =
           hColOffset.firstChild?.classList.contains("cast");
@@ -57,19 +54,15 @@ function validKingMoves() {
           moves.push(String.fromCharCode(103) + currentRow);
       }
 
-      // castling left (large)
+      // castle left
       if (castleKing && colOffset === -1 && rowOffset === 0 && isOffsetEmpty) {
         const cColOffset = getDivOffset(String.fromCharCode(99) + currentRow);
         const isCcolEmpty = isEmpty(cColOffset);
-        console.log(`is c col empty? ${isCcolEmpty}`);
         const bColOffset = getDivOffset(String.fromCharCode(98) + currentRow);
         const isBcolEmpty = isEmpty(bColOffset);
         const aColOffset = getDivOffset(String.fromCharCode(97) + currentRow);
         const aColOffsetCast =
           aColOffset.firstChild?.classList.contains("cast");
-        console.log(isCcolEmpty);
-        console.log(isBcolEmpty);
-        console.log(aColOffsetCast);
 
         isCcolEmpty &&
           isBcolEmpty &&
@@ -77,28 +70,52 @@ function validKingMoves() {
           moves.push(String.fromCharCode(99) + currentRow);
       }
 
-      // just for testing purposes
-      let kingMoves = ["a1", "a2", "a3", "a4", "a5", "a6"]; // current 'moves' array
+      // while (true) {
+      //   currentCol += colOffset;
 
-      // let forEach all opposite pieces moves, except for pawns vertical moves doesn't matter only diagonal pawn moves matter
-      const opponentPiece = playerTurn === "white" ? "black" : "white";
-      console.log(pieces.white);
-      console.log(pieces.black);
+      //   const offsetId = String.fromCharCode(currentCol) + currentRow;
 
-      pieces[opponentPiece].forEach((oppPiece) => console.log(oppPiece));
-      // let opp1moves = ["d6", "f5", "c5", "d4"];
-      // let opp2moves = ["a2", "b3", "c5", "a4", "d4"];
-      // let opp3moves = ["f4", "g6", "h6", "a5", "b6", "a1"];
+      //   if (!coords.includes(offsetId)) {
+      //     break;
+      //   }
 
-      // // All opponent moves including duplicates ones
-      // let combined = [...opp1moves, ...opp2moves, ...opp3moves];
-      // console.log(combined);
-      // // Removing duplicates
-      // let setCombined = [...new Set(combined)];
-      // console.log(setCombined);
-      // // Finding king moves that are not in opponent moves list  (not included in combined)
-      // const result = kingMoves.filter((element) => !combined.includes(element));
-      // console.log(result);
+      //   const squareOffset = getDivOffset(offsetId); // === document.querySelector(
+      //   //   `div[square-id = "${offsetId}"]`
+
+      //   const isOffsetEmpty = isEmpty(squareOffset); // if square.firstChild === null then it is empty square (true)
+
+      //   // has rook with castle class
+      //   // const hasOpponent =
+      //   //   squareOffset.firstChild?.classList.contains(opponentPiece);
+
+      //   if (isOffsetEmpty) {
+      //     moves.push(offsetId);
+      //   } else {
+      //     hasOpponent && moves.push(offsetId);
+      //     break;
+      //   }
+      // }
+
+      // Check if castling is possible
+      // RIGHT
+      // if (draggedDiv.classList.contains("cast") &&
+      // if (draggedPiece === "king" &&
+      //   moves.includes("e1") &&
+      //   moves.includes("h1") &&
+      //   isEmpty(document.querySelector("div[square-id = 'f1']")) &&
+      //   isEmpty(document.querySelector("div[square-id = 'g1']"))
+      // ) {
+      //   moves.push("e1g1");
+      // } else if (
+      //   playerTurn === "black" &&
+      //   draggedPiece === "king" &&
+      //   moves.includes("e8") &&
+      //   moves.includes("h8") &&
+      //   isEmpty(document.querySelector("div[square-id = 'f8']")) &&
+      //   isEmpty(document.querySelector("div[square-id = 'g8']"))
+      // ) {
+      //   moves.push("e8g8");
+      // }
     }
   });
 }
